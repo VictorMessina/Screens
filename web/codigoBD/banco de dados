@@ -1,0 +1,79 @@
+-- TABLE User
+
+create table User_ (
+    id_User int not null primary key generated always as identity
+    (start with 1,increment by 1),
+    owner varchar (10),
+    email varchar (30),
+    cpf varchar (11)
+);
+
+
+-- Table access --
+
+create table Access_ (
+    id_Access int not null primary key generated always as identity
+    (start with 1,increment by 1),
+    userName varchar(10),
+    password varchar (7),
+    foreign key (id_Access) references User_ (id_User)
+);
+
+-- table account --
+
+create table Account_ (
+    id_Account int not null primary key generated always as identity
+        (start with 1, increment by 1),
+    amount double not null,
+    types varchar (10),
+    foreign key (id_Account) references User_ (id_User)
+);
+
+-- colocar para linkar tabelas pagamento e ordem -- --join Payment_ on User_.id_User = id_Payment join Order_ on User_.id_User = id_Order;--
+
+-- mudar estrutura das tabelas payment e order --
+
+select*from USER_ inner join Access_ on User_.id_User = ACCESS_.ID_ACCESS join Account_ on User_.id_user = Account_.id_Account;
+select*from User_;
+select*from Access_;
+select*from Account_;
+select*from Order_;
+select*from Payment_;
+Drop table User_;
+Drop table Access_;
+Drop table Account_;
+Drop table Order_;
+Drop table Payment_;
+
+-- payment table -- 
+
+create table Payment_ (
+    id_Payment int not null primary key generated always as identity
+        (start with 1, increment by 1 ),
+    numberCard varchar (16),
+    total double not null,
+    paymentDate varchar (10),
+    status varchar (20)
+);
+
+-- order table --
+
+create table Order_ (
+    id_Order int not null primary key generated always as identity (start with 1, increment by 1),
+    dateOrder varchar (10),
+    status varchar (20)
+);
+
+-- Table movies --
+
+create table Movie_ (
+    id_Movie int not null primary key generated always as identity 
+    (start with 1, increment by 1),
+    title varchar (50),
+    years int not null,
+    director varchar (50),
+    classification int not null,
+    genre varchar (20)
+);
+
+
