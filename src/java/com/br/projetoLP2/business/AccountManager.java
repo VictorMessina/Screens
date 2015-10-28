@@ -1,4 +1,4 @@
-package com.br.projetoLP2.controller;
+package com.br.projetoLP2.business;
 
 import com.br.projetoLP2.model.DAO.AccountDAO;
 import com.br.projetoLP2.model.Account;

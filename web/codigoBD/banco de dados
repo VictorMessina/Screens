@@ -5,7 +5,9 @@ create table User_ (
     (start with 1,increment by 1),
     owner varchar (10),
     email varchar (30),
-    cpf varchar (11)
+    cpf varchar (11),
+    bday date,
+    userType int
 );
 
 
@@ -34,16 +36,28 @@ create table Account_ (
 -- mudar estrutura das tabelas payment e order --
 
 select*from USER_ inner join Access_ on User_.id_User = ACCESS_.ID_ACCESS join Account_ on User_.id_user = Account_.id_Account;
+select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account where userName='x';
+
 select*from User_;
 select*from Access_;
 select*from Account_;
 select*from Order_;
 select*from Payment_;
+
 Drop table User_;
 Drop table Access_;
 Drop table Account_;
 Drop table Order_;
 Drop table Payment_;
+
+
+Alter table User_Projeto add column user_type int;
+update user_projeto set user_type=1;
+update user_projeto set user_type=2 WHERE USERNAME='admin';
+
+Alter table User_Projeto add column bday DATE;
+update user_projeto set bday = '1900-03-23';
+update user_projeto set bday = '1995-10-23' WHERE USERNAME='victor';
 
 -- payment table -- 
 

@@ -21,7 +21,7 @@
         </noscript>
     </head>
     <body>
-        <c:if test="${userName==null}" >
+        <c:if test="${user==null}" >
             <c:redirect url="index.jsp"></c:redirect> 
         </c:if>
         <!-- Site -->

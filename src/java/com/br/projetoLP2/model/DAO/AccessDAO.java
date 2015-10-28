@@ -73,6 +73,44 @@ public class AccessDAO implements GenericDAO<Access> {
         }
         return access;
     }
+    
+    public Access readByUserName2(String userName) {
+        Access access = new Access();
+                
+        String sql = "select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account where userName=?";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,userName);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                access.setId_Access(rs.getInt("id_Access"));
+                access.setUserName(rs.getString("username"));
+                access.setPassword(rs.getString("password"));
+
+                access.getUser().setId_User(rs.getInt("id_user")); // parametro da tabela do DB
+                access.getUser().setOwner(rs.getString("owner")); // parametro da tabela do DB
+                access.getUser().setEmail(rs.getString("email"));
+                access.getUser().setCpf(rs.getString("cpf"));
+                access.getUser().setBday(rs.getDate("bday"));
+                access.getUser().setUserType(rs.getInt("userType"));
+                
+                access.getAccount().setId_Account(rs.getInt("id_Account"));
+                access.getAccount().setAmount(rs.getDouble("amount"));
+                access.getAccount().setTypes(rs.getString("types"));
+                
+            }
+            
+            ps.close();
+            rs.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return access;
+    }
 
     public Access readByUserName(String userName) {
         Access access = new Access();

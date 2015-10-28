@@ -1,4 +1,4 @@
-package com.br.projetoLP2.controller;
+package com.br.projetoLP2.business;
 
 import com.br.projetoLP2.model.Access;
 import com.br.projetoLP2.model.DAO.AccessDAO;
@@ -43,7 +43,7 @@ public class AccessManager {
      * @return 1-> user authorizad
      */
     public static int authorize(String userName, String password) {
-        int auth = -1;
+        int auth;
         AccessDAO accessDAO = new AccessDAO();
         access = accessDAO.readByUserName(userName);
 

@@ -1,4 +1,4 @@
-package com.br.projetoLP2.controller;
+package com.br.projetoLP2.business;
 
 import com.br.projetoLP2.model.DAO.UserDAO;
 import com.br.projetoLP2.model.User;
@@ -24,4 +24,5 @@ public class UserManager {
         }
         return -5;
     }
+     
 }

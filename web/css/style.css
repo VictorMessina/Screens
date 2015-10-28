@@ -237,6 +237,7 @@ form {
 input[type="text"],
 input[type="password"],
 input[type="email"],
+input[type="date"],
 textarea {
     appearance: none;
     background: white;

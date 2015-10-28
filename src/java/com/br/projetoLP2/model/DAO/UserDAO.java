@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -68,7 +69,7 @@ public class UserDAO implements GenericDAO<User> {
     public boolean insert(User user) {
         boolean resp = false;
 
-        String sql = "insert into User_ (owner,email,cpf) values (?,?,?)";
+        String sql = "insert into User_ (owner,email,cpf,bday,userType) values (?,?,?,?,?)";
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -76,6 +77,9 @@ public class UserDAO implements GenericDAO<User> {
             ps.setString(1, user.getOwner());
             ps.setString(2, user.getEmail());
             ps.setString(3, user.getCpf());
+            java.sql.Date sqlDate = new java.sql.Date(user.getBday().getTime());
+            ps.setDate(4,sqlDate);
+            ps.setInt(5, user.getUserType());
 
             int resposta = ps.executeUpdate();
 
@@ -104,20 +108,24 @@ public class UserDAO implements GenericDAO<User> {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                int id_User = rs.getInt("id_User");
-                String owner = rs.getString("owner");
-                String email = rs.getString("email");
-                String cpf = rs.getString("cpf");
+                User user = new User();
+                
+                user.setId_User(rs.getInt("id_user")); // parametro da tabela do DB
+                user.setOwner(rs.getString("owner")); // parametro da tabela do DB
+                user.setEmail(rs.getString("email"));
+                user.setCpf(rs.getString("cpf"));
+                user.setBday(rs.getDate("bday"));
+                user.setUserType(rs.getInt("userType"));
+                
+                user.getAccess().setId_Access(rs.getInt("id_Access"));
+                user.getAccess().setUserName(rs.getString("username"));
+                user.getAccess().setPassword(rs.getString("password"));
 
-                int id_Access = rs.getInt("id_Access)");
-                String username = rs.getString("username");
-                String password = rs.getString("password");
-
-                int id_Account = rs.getInt("id_Account");
-                double amount = rs.getDouble("amount");
-                String types = rs.getString("types");
-                User u = new User(id_User, owner, email, cpf, new Access(id_Access, username, password), new Account(id_Account, amount, types));
-                users.add(u);
+                user.getAccount().setId_Account(rs.getInt("id_Account"));
+                user.getAccount().setAmount(rs.getDouble("amount"));
+                user.getAccount().setTypes(rs.getString("types"));
+                
+                users.add(user);
             }
             ps.close();
             rs.close();
@@ -148,6 +156,8 @@ public class UserDAO implements GenericDAO<User> {
                 user.setOwner(rs.getString("owner"));
                 user.setEmail(rs.getString("email"));
                 user.setCpf(rs.getString("cpf"));
+                user.setBday(rs.getDate("bday"));
+                user.setUserType(rs.getInt("userType"));
 
             }
             //5-fecha a conexao com o DB e com o PerparedStatement
@@ -164,7 +174,7 @@ public class UserDAO implements GenericDAO<User> {
     public boolean update(User user) {
         boolean resp = false;
 
-        String sql = "update User_ set owner=?,email=?,cpf=? where id_user=?";
+        String sql = "update User_ set owner=?,email=?,cpf=?,bday=?,userType=? where id_user=?";
 
         PreparedStatement ps;
 
@@ -174,7 +184,9 @@ public class UserDAO implements GenericDAO<User> {
             ps.setString(1, user.getOwner());
             ps.setString(2, user.getEmail());
             ps.setString(3, user.getCpf());
-            ps.setInt(4, user.getId_User());
+            ps.setDate(4, new java.sql.Date(user.getBday().getTime()));
+            ps.setInt(5,user.getUserType());
+            ps.setInt(6, user.getId_User());
 
             int resposta = ps.executeUpdate();
 

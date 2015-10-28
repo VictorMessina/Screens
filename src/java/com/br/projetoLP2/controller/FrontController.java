@@ -1,12 +1,17 @@
 package com.br.projetoLP2.controller;
 
+import com.br.projetoLP2.business.UserManager;
+import com.br.projetoLP2.business.AccountManager;
+import com.br.projetoLP2.business.AccessManager;
 import com.br.projetoLP2.model.Access;
-import com.br.projetoLP2.model.DAO.GenericDAO;
-import com.br.projetoLP2.model.DAO.UserDAO;
 import com.br.projetoLP2.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,15 +51,24 @@ public class FrontController extends HttpServlet {
                     String owner = request.getParameter("owner");
                     String email = request.getParameter("email");
                     String cpf = request.getParameter("cpf");
+                    String bday = request.getParameter("bday");
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    Date bday2 = null;
+                    try {
+                        bday2 = formatter.parse(bday);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(FrontController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
-                    User user = new User(owner, email, cpf);
+                    User user = new User();
 
                     user.setOwner(owner);
                     user.setEmail(email);
                     user.setCpf(cpf);
+                    user.setBday(bday2);
+                    user.setUserType(1);
 
                     code = UserManager.insert(user);
-
                     //request.getSession().setAttribute("owner",owner);
                 }
 

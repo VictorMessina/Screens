@@ -40,6 +40,7 @@
                             <p> Owner:  <input type="text" name="owner" placeholder="Owner" maxlength="10" required/></p>
                             <p> Email: <input type="email" name="email"  placeholder="email" maxlength="30" required/></p>
                             <p> CPF: <input type="text" name="cpf"  placeholder="CPF" maxlength="11" required/></p>            
+                            <p> Data de Nascimento<input type="date" name="bday" placeholder="dd/mm/yyyy" required</p> 
                             <!-- Colocar aqui os outros campos do seu cadastro 
                                  usar required quando os campos do banco forem not null-->
                             <input type="hidden" name="command" value="user.insert" />
