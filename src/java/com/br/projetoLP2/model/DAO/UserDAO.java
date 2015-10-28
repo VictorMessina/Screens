@@ -1,14 +1,12 @@
 package com.br.projetoLP2.model.DAO;
 
-import com.br.projetoLP2.model.Access;
-import com.br.projetoLP2.model.Account;
+
 import com.br.projetoLP2.model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,48 +21,6 @@ public class UserDAO implements GenericDAO<User> {
         conn = ConnectionDB.getInstance();
     }
 
-
-    /*public User readByUsername(String username) {
-        User user = null;
-        //2 - criar String SQL
-        String sql = "select * from USER_ inner join Access_ on User_.id_User = ACCESS_.ID_ACCESS join Account_ on USER_.ID_USER = Account_.ID_ACCOUNT WHERE Access_.USERNAME=?";
-        try {
-            //2a - criar o preparedStatement
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, username);
-
-            //3- executa a query 
-            ResultSet rs = ps.executeQuery(); // retorna um objeto do tipo resultSet (grande objeto, 
-            // mapa de registros do banco)
-
-            //4 - mostrar os resultados do resutSet
-            while (rs.next()) {
-                int id_User = rs.getInt("id_User");
-                String owner = rs.getString("owner");
-                String email = rs.getString("email");
-                String cpf = rs.getString("cpf");
-
-                int id_Access = rs.getInt("id_Access");
-                username = rs.getString("username");
-                String password = rs.getString("password");
-
-                int id_Account = rs.getInt("id_Account");
-                double amount = rs.getDouble("amount");
-                String types = rs.getString("types");
-                
-                user = new User(id_User, owner, email, cpf, new Access(id_Access, username, password), new Account(id_Account, amount, types));
-
-            }
-            //5-fecha a conexao com o DB e com o PerparedStatement
-            ps.close();
-            rs.close();
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return user;
-    }
-    */
     @Override
     public boolean insert(User user) {
         boolean resp = false;

@@ -1,6 +1,7 @@
 package com.br.projetoLP2.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -11,10 +12,18 @@ public class Payment implements Serializable {
     private int id_payment;
     private String numberCard;
     private double total;
-    private String paymentDate;
+    private Date paymentDate;
     private String status;
+    
+    public Payment (){
+        this.id_payment=-1;
+        this.numberCard="xxxxxxxxxxxxxxxx";
+        this.total= 0.0;
+        this.paymentDate = new Date();
+        this.status = "sem status";
+    }
 
-    public Payment(int id_payment, String numberCard, double total, String paymentDate, String status) {
+    public Payment(int id_payment, String numberCard, double total, Date paymentDate, String status) {
         this.id_payment = id_payment;
         this.numberCard = numberCard;
         this.total = total;
@@ -22,7 +31,7 @@ public class Payment implements Serializable {
         this.status = status;
     }
 
-    public Payment(String numberCard, double total, String paymentDate, String status) {
+    public Payment(String numberCard, double total, Date paymentDate, String status) {
         this.numberCard = numberCard;
         this.total = total;
         this.paymentDate = paymentDate;
@@ -53,11 +62,11 @@ public class Payment implements Serializable {
         this.total = total;
     }
 
-    public String getPaymentDate() {
+    public Date getPaymentDate() {
         return paymentDate;
     }
 
-    public void setPaymentDate(String paymentDate) {
+    public void setPaymentDate(Date paymentDate) {
         this.paymentDate = paymentDate;
     }
 

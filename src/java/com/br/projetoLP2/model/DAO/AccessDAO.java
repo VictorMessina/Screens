@@ -51,9 +51,9 @@ public class AccessDAO implements GenericDAO<Access> {
 
     @Override
     public List<Access> read() {
-        List<Access> access = new ArrayList<>();
-
-        String sql = "select * from Access_";
+        List<Access> accesslist = new ArrayList<>();
+        Access access = new Access();
+        String sql = "select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account";
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -61,11 +61,29 @@ public class AccessDAO implements GenericDAO<Access> {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                int id_Access = rs.getInt("id_Access");
-                String userName = rs.getString("userName");
-                String password = rs.getString("password");
-                Access a = new Access(id_Access, userName, password);
-                access.add(a);
+                access.setId_Access(rs.getInt("id_Access"));
+                access.setUserName(rs.getString("username"));
+                access.setPassword(rs.getString("password"));
+                
+                User user = new User();
+                
+                user.setId_User(rs.getInt("id_user")); // parametro da tabela do DB
+                user.setOwner(rs.getString("owner")); // parametro da tabela do DB
+                user.setEmail(rs.getString("email"));
+                user.setCpf(rs.getString("cpf"));
+                user.setBday(rs.getDate("bday"));
+                user.setUserType(rs.getInt("userType"));
+                
+                Account account = new Account();
+                
+                account.setId_Account(rs.getInt("id_Account"));
+                account.setAmount(rs.getDouble("amount"));
+                account.setTypes(rs.getString("types"));
+                
+                access.setUser(user);
+                access.setAccount(account);
+                
+                accesslist.add(access);
             }
             ps.close();
             rs.close();
@@ -73,7 +91,7 @@ public class AccessDAO implements GenericDAO<Access> {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return access;
+        return accesslist;
     }
 
     public Access readByUserName(String userName) {

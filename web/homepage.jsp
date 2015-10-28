@@ -25,25 +25,19 @@
         <c:if test="${access==null}">
             <c:redirect url="index.jsp"></c:redirect> 
         </c:if>
+        
+        <c:choose>
+            <c:when test="${access.getUser().getUserType() == 2}">
+                <c:redirect url="admFunctions.jsp" ></c:redirect>
+            </c:when>
+                
+            <c:otherwise>    
+                <%@include file="menu_usuario.jspf" %>
+            </c:otherwise>
+                
+        </c:choose>
+        
         <!-- Site -->
-        <div class="site">
-
-            <!-- Header -->
-            <div id="header" class="skel-panels-fixed">
-                <div id="logo">
-                    <h1><a href="FrontController?command=access.homepage">SCREENS</a></h1>
-                </div>
-                <nav id="nav">
-                    <ul>
-                        <li> <h1>Welcome ${access.getUser().getOwner()} </h1></li>
-                        <li><a href="FrontController?command=access.perfil">Perfil</a></li>
-                        <li><a href="FrontController?command=access.homepage">Home</a></li>
-                        <li><a href="grupo.jsp">Sobre Nós</a></li>
-                        <li><a href="FrontController?command=access.logout">Sair</a></li>
-                    </ul>
-                </nav>
-            </div>
-
             <!-- Quadros dos filmes (extra) -->
             <div class="container">
                 <div class="row no-collapse-1">
@@ -131,7 +125,6 @@
 
                 </div>
             </div>
-        </div>
 
         <!-- Rodapé -->
         <div id="footer">

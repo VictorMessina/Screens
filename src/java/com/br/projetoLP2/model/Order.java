@@ -1,6 +1,7 @@
 package com.br.projetoLP2.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -9,16 +10,22 @@ import java.io.Serializable;
 public class Order implements Serializable {
 
     private int id_Order;
-    private String dateOrder;
+    private Date dateOrder;
     private String status;
 
-    public Order(int id_Order, String dateOrder, String status) {
+    public Order(){
+        this.id_Order=-1;
+        this.dateOrder = new Date();
+        this.status="sem status";
+    }
+    
+    public Order(int id_Order, Date dateOrder, String status) {
         this.id_Order = id_Order;
         this.dateOrder = dateOrder;
         this.status = status;
     }
 
-    public Order(String dateOrder, String status) {
+    public Order(Date dateOrder, String status) {
         this.dateOrder = dateOrder;
         this.status = status;
     }
@@ -31,11 +38,11 @@ public class Order implements Serializable {
         this.id_Order = id_Order;
     }
 
-    public String getDateOrder() {
+    public Date getDateOrder() {
         return dateOrder;
     }
 
-    public void setDateOrder(String dateOrder) {
+    public void setDateOrder(Date dateOrder) {
         this.dateOrder = dateOrder;
     }
 

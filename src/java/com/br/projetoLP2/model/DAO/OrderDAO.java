@@ -28,8 +28,9 @@ public class OrderDAO implements GenericDAO<Order> {
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-
-            ps.setString(1, order.getDateOrder());
+            
+           java.sql.Date sqlDate = new java.sql.Date(order.getDateOrder().getTime());
+            ps.setDate(1,sqlDate);
             ps.setString(2, order.getStatus());
 
             int resposta = ps.executeUpdate();
@@ -59,10 +60,12 @@ public class OrderDAO implements GenericDAO<Order> {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                int id_Order = rs.getInt("id_Order");
-                String dataOrder = rs.getString("dateOrder");
-                String status = rs.getString("status");
-                Order order = new Order(id_Order, dataOrder, status);
+                Order order = new Order();
+                
+                order.setId_Order(rs.getInt("id_Order")); // parametro da tabela do DB
+                order.setDateOrder(rs.getDate("dateOrder")); // parametro da tabela do DB
+                order.setStatus(rs.getString("status"));
+                
                 orders.add(order);
             }
             ps.close();
@@ -85,7 +88,7 @@ public class OrderDAO implements GenericDAO<Order> {
         try {
             ps = conn.prepareStatement(sql);
 
-            ps.setString(1, order.getDateOrder());
+            ps.setDate(1,new java.sql.Date(order.getDateOrder().getTime()));
             ps.setString(2, order.getStatus());
             ps.setInt(3, order.getId_Order());
 
@@ -129,5 +132,4 @@ public class OrderDAO implements GenericDAO<Order> {
         }
         return resp;
     }
-
 }

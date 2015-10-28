@@ -31,7 +31,8 @@ public class PaymentDAO implements GenericDAO<Payment> {
 
             ps.setString(1, payment.getNumberCard());
             ps.setDouble(2, payment.getTotal());
-            ps.setString(3, payment.getPaymentDate());
+            java.sql.Date sqlDate = new java.sql.Date(payment.getPaymentDate().getTime());
+            ps.setDate(3,sqlDate);
             ps.setString(4, payment.getStatus());
 
             int resposta = ps.executeUpdate();
@@ -61,12 +62,14 @@ public class PaymentDAO implements GenericDAO<Payment> {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                int id_Payment = rs.getInt("id_Payment");
-                String numberCard = rs.getString("numberCard");
-                double total = rs.getDouble("total");
-                String paymentDate = rs.getString("paymentDate");
-                String status = rs.getString("status");
-                Payment payment = new Payment(id_Payment, numberCard, total, paymentDate, status);
+                Payment payment = new Payment();
+                
+                payment.setId_payment(rs.getInt("id_Payment")); // parametro da tabela do DB
+                payment.setNumberCard(rs.getString("numberCard")); // parametro da tabela do DB
+                payment.setTotal(rs.getDouble("total"));
+                payment.setPaymentDate(rs.getDate("paymentDate"));
+                payment.setStatus(rs.getString("status"));
+                
                 payments.add(payment);
             }
             ps.close();
@@ -91,7 +94,7 @@ public class PaymentDAO implements GenericDAO<Payment> {
 
             ps.setString(1, payment.getNumberCard());
             ps.setDouble(2, payment.getTotal());
-            ps.setString(3, payment.getPaymentDate());
+            ps.setDate(3, new java.sql.Date(payment.getPaymentDate().getTime()));
             ps.setString(4, payment.getStatus());
             ps.setInt(5, payment.getId_payment());
 

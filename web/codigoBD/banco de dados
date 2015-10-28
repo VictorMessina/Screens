@@ -37,7 +37,7 @@ create table Account_ (
 
 select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account where userName=?;
 
-select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account;
+select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account join Payment_ on Access_.id_Access = id_Payment join Order_ on Access_.id_Access = id_Order;
 
 select*from User_;
 select*from Access_;
@@ -60,6 +60,9 @@ update user_projeto set user_type=2 WHERE USERNAME='admin'; --
 update user_projeto set bday = '1900-03-23';
 update user_projeto set bday = '1995-10-23' WHERE USERNAME='victor'; --
 
+update USER_ SET USERTYPE=2 WHERE OWNER='Victor';
+
+
 -- payment table -- 
 
 create table Payment_ (
@@ -67,7 +70,7 @@ create table Payment_ (
         (start with 1, increment by 1 ),
     numberCard varchar (16),
     total double not null,
-    paymentDate varchar (10),
+    paymentDate Date,
     status varchar (20)
 );
 
@@ -75,7 +78,7 @@ create table Payment_ (
 
 create table Order_ (
     id_Order int not null primary key generated always as identity (start with 1, increment by 1),
-    dateOrder varchar (10),
+    dateOrder Date,
     status varchar (20)
 );
 
@@ -90,5 +93,3 @@ create table Movie_ (
     classification int not null,
     genre varchar (20)
 );
-
-
