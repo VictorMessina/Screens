@@ -22,7 +22,7 @@
         </noscript>
     </head>
     <body>
-        <c:if test="${userName==null}">
+        <c:if test="${access==null}">
             <c:redirect url="index.jsp"></c:redirect> 
         </c:if>
         <!-- Site -->
@@ -31,17 +31,13 @@
             <!-- Header -->
             <div id="header" class="skel-panels-fixed">
                 <div id="logo">
-                    <h1><a href="homepage.jsp">SCREENS</a></h1>
+                    <h1><a href="FrontController?command=access.homepage">SCREENS</a></h1>
                 </div>
                 <nav id="nav">
                     <ul>
-                        <li> <h1><%/*
-                             //HttpSession session2 = request.getSession();
-                             //String username = session.getAttribute("nome").toString();
-                             //out.print("Welcome " + username);
-                             out.print("Welcome " + request.getSession().getAttribute("nickName").toString());*/%> </h1></li>
+                        <li> <h1>Welcome ${access.getUser().getOwner()} </h1></li>
                         <li><a href="FrontController?command=access.perfil">Perfil</a></li>
-                        <li><a href="homepage.jsp">Home</a></li>
+                        <li><a href="FrontController?command=access.homepage">Home</a></li>
                         <li><a href="grupo.jsp">Sobre Nós</a></li>
                         <li><a href="FrontController?command=access.logout">Sair</a></li>
                     </ul>

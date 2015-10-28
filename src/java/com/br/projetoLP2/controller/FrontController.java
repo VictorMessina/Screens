@@ -99,7 +99,7 @@ public class FrontController extends HttpServlet {
                     String userName = request.getParameter("userName");
                     String password = request.getParameter("password");
                     code = AccessManager.authorize(userName, password);
-                    request.getSession().setAttribute("userName", userName);
+                    request.getSession().setAttribute("access", AccessManager.getAccess());
                     // substitui as duas linhas comentada abaixo
                     //request.getSession().setAttribute("password",password); // substitui as duas linhas comentada abaixo
 
@@ -122,14 +122,23 @@ public class FrontController extends HttpServlet {
                         rd = request.getRequestDispatcher("/register2.jsp");
                         rd.forward(request, response);
                     }
-                } else if (command.endsWith("logout")) {
+                } 
+                else if (command.endsWith("logout")) {
                     request.getSession().invalidate(); // destroi a sessão
                     rd = request.getRequestDispatcher("/index.jsp"); // redireciona para pagina index
                     rd.forward(request, response);
-                } else if (command.endsWith("perfil")) {
+                } 
+                else if (command.endsWith("perfil")) {
+                        request.getSession().setAttribute("access", AccessManager.getAccess());
                         rd = request.getRequestDispatcher("/perfil.jsp"); // redireciona para pagina perfil
                         rd.forward(request, response);
                 }
+                else if (command.endsWith("homepage")) {
+                        request.getSession().setAttribute("access", AccessManager.getAccess());
+                        rd = request.getRequestDispatcher("/homepage.jsp"); // redireciona para pagina perfil
+                        rd.forward(request, response);
+                }
+                
 
                 if (code == 1) {
                     String userName = "";

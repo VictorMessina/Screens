@@ -21,7 +21,7 @@
         </noscript>
     </head>
     <body>
-        <c:if test="${user==null}" >
+        <c:if test="${access==null}" >
             <c:redirect url="index.jsp"></c:redirect> 
         </c:if>
         <!-- Site -->
@@ -30,12 +30,12 @@
             <!-- Header -->
             <div id="header" class="skel-panels-fixed">
                 <div id="logo">
-                    <h1><a href="FrontController?command=access.perfil">SCREENS</a></h1>
+                    <h1><a href="FrontController?command=access.homepage">SCREENS</a></h1>
                 </div>
                 <nav id="nav">
                     <ul>
                         <li><a href="FrontController?command=access.perfil">Perfil</a></li>
-                        <li><a href="homepage.jsp">Home</a></li>
+                        <li><a href="FrontController?command=access.homepage">Home</a></li>
                         <li><a href="grupo.jsp">Sobre Nós</a></li>
                         <li><a href="FrontController?command=access.logout">Sair</a></li>
                     </ul>
@@ -45,16 +45,13 @@
             <!-- Banner -->
             <div id="banner" class="container">
                 <section>
-                    <p> Bem vindo(a) à sua página de perfil no <strong>SCREENS</strong>!</p>
+                    <p> Bem vindo(a) ${access.getUser().getOwner()} à sua página de perfil no <strong>SCREENS</strong>!</p>
                     <p> Confira abaixo seus dados: </p>
                     <p></p>
-                    <p> Owner:<h2>${user.getOwner()}</h2> </p>
-                    <p> E-mail: <h2>${user.getEmail()}</h2></p>
-                    <p> CPF: <h2>${user.getCpf()}</h2></p>
-                    <p> Tipo de conta: <h2>${user.getAccount().getTypes()}</h2></p>
-                    <%/*out.print(request.getSession().getAttribute("nickName").toString())*/;%> 
-                    <%/*out.print(request.getSession().getAttribute("email").toString());*/%> 
-                    <%/*out.print(request.getSession().getAttribute("cpf").toString());*/%>
+                    <p> Owner:<h2>${access.getUser().getOwner()}</h2> </p>
+                    <p> E-mail: <h2>${access.getUser().getEmail()}</h2></p>
+                    <p> CPF: <h2>${access.getUser().getCpf()}</h2></p>
+                    <p> Tipo de conta: <h2>${access.getAccount().getTypes()}</h2></p>
                 </section>
             </div>	
         </div>

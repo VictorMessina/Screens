@@ -15,8 +15,6 @@ public class User implements Serializable {
     private String cpf;
     private Date bday;
     private int userType;
-    private Access access;
-    private Account account;
 
     public User() {
         this.id_User = -1;
@@ -25,8 +23,6 @@ public class User implements Serializable {
         this.cpf = "00000000000";
         this.bday= new Date();
         this.userType= -1;
-        this.access = null;
-        this.account=null;
     }
 
     public User(int id_User, String owner, String email, String cpf,Date bday, int userType) {
@@ -45,33 +41,6 @@ public class User implements Serializable {
         this.cpf = cpf;
         this.bday=bday;
         this.userType=userType;
-    }
-
-    public User(int id_User, String owner, String email, String cpf,Date bday,int userType, Access access, Account account) {
-        this.id_User = id_User;
-        this.owner = owner;
-        this.email = email;
-        this.cpf = cpf;
-        this.bday=bday;
-        this.userType=userType;
-        this.access = access;
-        this.account = account;
-    }
-
-    public Access getAccess() {
-        return access;
-    }
-
-    public void setAccess(Access access) {
-        this.access = access;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
     }
 
     public int getId_User() {

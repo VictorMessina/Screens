@@ -1,6 +1,8 @@
 package com.br.projetoLP2.model.DAO;
 
 import com.br.projetoLP2.model.Access;
+import com.br.projetoLP2.model.Account;
+import com.br.projetoLP2.model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -73,15 +75,15 @@ public class AccessDAO implements GenericDAO<Access> {
         }
         return access;
     }
-    
-    public Access readByUserName2(String userName) {
+
+    public Access readByUserName(String userName) {
         Access access = new Access();
-                
+
         String sql = "select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account where userName=?";
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1,userName);
+            ps.setString(1, userName);
 
             ResultSet rs = ps.executeQuery();
 
@@ -89,49 +91,25 @@ public class AccessDAO implements GenericDAO<Access> {
                 access.setId_Access(rs.getInt("id_Access"));
                 access.setUserName(rs.getString("username"));
                 access.setPassword(rs.getString("password"));
-
-                access.getUser().setId_User(rs.getInt("id_user")); // parametro da tabela do DB
-                access.getUser().setOwner(rs.getString("owner")); // parametro da tabela do DB
-                access.getUser().setEmail(rs.getString("email"));
-                access.getUser().setCpf(rs.getString("cpf"));
-                access.getUser().setBday(rs.getDate("bday"));
-                access.getUser().setUserType(rs.getInt("userType"));
                 
-                access.getAccount().setId_Account(rs.getInt("id_Account"));
-                access.getAccount().setAmount(rs.getDouble("amount"));
-                access.getAccount().setTypes(rs.getString("types"));
+                User user = new User();
                 
+                user.setId_User(rs.getInt("id_user")); // parametro da tabela do DB
+                user.setOwner(rs.getString("owner")); // parametro da tabela do DB
+                user.setEmail(rs.getString("email"));
+                user.setCpf(rs.getString("cpf"));
+                user.setBday(rs.getDate("bday"));
+                user.setUserType(rs.getInt("userType"));
+                
+                Account account = new Account();
+                
+                account.setId_Account(rs.getInt("id_Account"));
+                account.setAmount(rs.getDouble("amount"));
+                account.setTypes(rs.getString("types"));
+                access.setUser(user);
+                access.setAccount(account);
             }
-            
-            ps.close();
-            rs.close();
 
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return access;
-    }
-
-    public Access readByUserName(String userName) {
-        Access access = new Access();
-        //2 - criar String SQL
-        String sql = "Select * from Access_ where userName=?";
-        try {
-            //2a - criar o preparedStatement
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, userName);
-
-            //3- executa a query 
-            ResultSet rs = ps.executeQuery(); // retorna um objeto do tipo resultSet (grande objeto, 
-            // mapa de registros do banco)
-
-            //4 - mostrar os resultados do resutSet
-            while (rs.next()) {
-                access.setId_Access(rs.getInt("id_Access"));
-                access.setUserName(rs.getString("userName"));
-                access.setPassword(rs.getString("password"));
-            }
-            //5-fecha a conexao com o DB e com o PerparedStatement
             ps.close();
             rs.close();
 

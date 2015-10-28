@@ -100,7 +100,7 @@ public class UserDAO implements GenericDAO<User> {
     public List<User> read() {
         List<User> users = new ArrayList<>();
 
-        String sql = "select * from USER_ inner join Access_ on User_.id_User = ACCESS_.ID_ACCESS join Account_ on USER_.ID_USER = Account_.ID_ACCOUNT;";
+        String sql = "select * from USER_";
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -116,14 +116,6 @@ public class UserDAO implements GenericDAO<User> {
                 user.setCpf(rs.getString("cpf"));
                 user.setBday(rs.getDate("bday"));
                 user.setUserType(rs.getInt("userType"));
-                
-                user.getAccess().setId_Access(rs.getInt("id_Access"));
-                user.getAccess().setUserName(rs.getString("username"));
-                user.getAccess().setPassword(rs.getString("password"));
-
-                user.getAccount().setId_Account(rs.getInt("id_Account"));
-                user.getAccount().setAmount(rs.getDouble("amount"));
-                user.getAccount().setTypes(rs.getString("types"));
                 
                 users.add(user);
             }

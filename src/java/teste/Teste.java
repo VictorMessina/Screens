@@ -14,7 +14,7 @@ public class Teste {
         //User user = dao.readByUsername("lucas");
         User user3 = dao.readByOwner("victor");
         
-        System.out.println("Nome: " + user3.getAccess().getUserName());
+        System.out.println("Nome: " + user3);
     }
     
 }
