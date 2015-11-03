@@ -13,6 +13,7 @@ public class Access implements Serializable {
     private String password;
     private User user;
     private Account account;
+    private Payment payment;
 
     public Access() {
         this.id_Access = -1;
@@ -20,6 +21,7 @@ public class Access implements Serializable {
         this.password = "1234567";
         this.account = null;
         this.user = null;
+        this.payment=null;
     }
 
     public Access(int id_Access, String userName, String password) {
@@ -74,6 +76,14 @@ public class Access implements Serializable {
         this.account = account;
     }
 
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+    
     @Override
     public String toString() {
         return "Access{" + "id_Access=" + id_Access

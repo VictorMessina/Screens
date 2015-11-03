@@ -3,7 +3,9 @@ package com.br.projetoLP2.controller;
 import com.br.projetoLP2.business.UserManager;
 import com.br.projetoLP2.business.AccountManager;
 import com.br.projetoLP2.business.AccessManager;
+import com.br.projetoLP2.business.PaymentManager;
 import com.br.projetoLP2.model.Access;
+import com.br.projetoLP2.model.Payment;
 import com.br.projetoLP2.model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -139,7 +141,6 @@ public class FrontController extends HttpServlet {
                         rd.forward(request, response);
                 }
                 
-
                 if (code == 1) {
                     String userName = "";
 
@@ -188,7 +189,7 @@ public class FrontController extends HttpServlet {
                 }
 
                 if (code == 1) {
-                    rd = request.getRequestDispatcher("/homepage.jsp");
+                    rd = request.getRequestDispatcher("/register4.jsp");
                     rd.forward(request, response);
                 } else {
                     rd = request.getRequestDispatcher("/erroLogin.jsp");
@@ -203,6 +204,45 @@ public class FrontController extends HttpServlet {
                     //response.sendRedirect("erroLogin.jsp"); // pode substituir a linha de cima mas nao mantem todas as informações na session
                 }
             }//FIM IF ACCOUNT
+            
+            if (command.startsWith("payment")) {
+                int code = 0;
+                if (command.endsWith("insert")) { // insert - insere um novo pagamento no banco de dados
+
+                    
+                    Payment payment = new Payment ();
+                    
+                    String numberCard = request.getParameter("numberCard");
+                    
+                    Double total = 0.0;
+                    
+                    Date paymentDate = new Date();
+                    
+                    String status = "Em aberto";
+
+                    payment.setNumberCard(numberCard);
+                    payment.setTotal(total);
+                    payment.setPaymentDate(paymentDate);
+                    payment.setStatus(status);
+
+                    code = PaymentManager.insert(payment);
+                }
+
+                if (code == 1) {
+                    rd = request.getRequestDispatcher("/homepage.jsp");
+                    rd.forward(request, response);
+                } else {
+                    rd = request.getRequestDispatcher("/erroLogin.jsp");
+                    String mensagem = "";
+                    switch (code) {
+                        case -5:
+                            mensagem = "ERROR on data base. try again";
+                            break;
+                    }
+                    request.getSession().setAttribute("code", mensagem);
+                    rd.forward(request, response);
+                }
+            } //FIM DO IF PAYMENT
         }
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

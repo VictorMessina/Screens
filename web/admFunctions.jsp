@@ -22,8 +22,10 @@
         </noscript>
     </head>
     <body>
-<h2>Funções ADM</h2>
-
+        <h2>Funções ADM</h2>
+            
+        <a href="FrontController?command=access.logout">Sair</a>
+        
         <div class="container">
             <h1> CRUD para Usuarios </h1>
          

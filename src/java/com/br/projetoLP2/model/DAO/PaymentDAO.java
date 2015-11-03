@@ -16,7 +16,7 @@ public class PaymentDAO implements GenericDAO<Payment> {
 
     private Connection conn;
 
-    public PaymentDAO(Connection conn) {
+    public PaymentDAO() {
         conn = ConnectionDB.getInstance();
     }
 

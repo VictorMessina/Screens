@@ -2,6 +2,7 @@ package com.br.projetoLP2.model.DAO;
 
 import com.br.projetoLP2.model.Access;
 import com.br.projetoLP2.model.Account;
+import com.br.projetoLP2.model.Payment;
 import com.br.projetoLP2.model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -53,7 +54,7 @@ public class AccessDAO implements GenericDAO<Access> {
     public List<Access> read() {
         List<Access> accesslist = new ArrayList<>();
         Access access = new Access();
-        String sql = "select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account";
+        String sql = "select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account join Payment_ on Access_.id_Access = id_Payment";
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -80,8 +81,17 @@ public class AccessDAO implements GenericDAO<Access> {
                 account.setAmount(rs.getDouble("amount"));
                 account.setTypes(rs.getString("types"));
                 
+                Payment payment = new Payment();
+                
+                payment.setId_payment(rs.getInt("id_Payment"));
+                payment.setNumberCard(rs.getString("numberCard"));
+                payment.setTotal(rs.getDouble("total"));
+                payment.setPaymentDate(rs.getDate("paymentDate"));
+                payment.setStatus(rs.getString("status"));
+                
                 access.setUser(user);
                 access.setAccount(account);
+                access.setPayment(payment);
                 
                 accesslist.add(access);
             }
@@ -97,7 +107,7 @@ public class AccessDAO implements GenericDAO<Access> {
     public Access readByUserName(String userName) {
         Access access = new Access();
 
-        String sql = "select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account where userName=?";
+        String sql = "select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account join Payment_ on Access_.id_Access = id_Payment where userName=?";
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -124,8 +134,18 @@ public class AccessDAO implements GenericDAO<Access> {
                 account.setId_Account(rs.getInt("id_Account"));
                 account.setAmount(rs.getDouble("amount"));
                 account.setTypes(rs.getString("types"));
+                
+                Payment payment = new Payment();
+                
+                payment.setId_payment(rs.getInt("id_Payment"));
+                payment.setNumberCard(rs.getString("numberCard"));
+                payment.setTotal(rs.getDouble("total"));
+                payment.setPaymentDate(rs.getDate("paymentDate"));
+                payment.setStatus(rs.getString("status"));
+                
                 access.setUser(user);
                 access.setAccount(account);
+                access.setPayment(payment);
             }
 
             ps.close();
