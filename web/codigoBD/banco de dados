@@ -31,12 +31,20 @@ create table Account_ (
     foreign key (id_Account) references User_ (id_User)
 );
 
--- colocar para linkar tabelas pagamento e ordem -- --join Payment_ on User_.id_User = id_Payment join Order_ on User_.id_User = id_Order;--
+-- payment table -- 
 
--- mudar estrutura das tabelas payment e order --
+create table Payment_ (
+    id_Payment int not null primary key generated always as identity
+        (start with 1, increment by 1 ),
+    numberCard varchar (16),
+    total double not null,
+    paymentDate Date,
+    status varchar (20)
+);
 
-select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account where userName=?;
+-- colocar para linkar tabela ordem -- -- join Order_ on User_.id_User = id_Order;--
 
+select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account join Payment_ on Access_.id_Access = id_Payment;
 select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account join Payment_ on Access_.id_Access = id_Payment join Order_ on Access_.id_Access = id_Order;
 
 select*from User_;
@@ -51,7 +59,6 @@ Drop table Account_;
 Drop table Order_;
 Drop table Payment_;
 
-
 -- Alter table User_Projeto add column user_type int;
 update user_projeto set user_type=1;
 update user_projeto set user_type=2 WHERE USERNAME='admin'; --
@@ -62,17 +69,7 @@ update user_projeto set bday = '1995-10-23' WHERE USERNAME='victor'; --
 
 update USER_ SET USERTYPE=2 WHERE OWNER='Victor';
 
-
--- payment table -- 
-
-create table Payment_ (
-    id_Payment int not null primary key generated always as identity
-        (start with 1, increment by 1 ),
-    numberCard varchar (16),
-    total double not null,
-    paymentDate Date,
-    status varchar (20)
-);
+select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account where userName=?;
 
 -- order table --
 

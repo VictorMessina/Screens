@@ -19,7 +19,7 @@ public class Payment implements Serializable {
         this.id_payment=-1;
         this.numberCard="xxxxxxxxxxxxxxxx";
         this.total= 0.0;
-        this.paymentDate = new Date();
+        this.paymentDate = null;
         this.status = "sem status";
     }
 
@@ -76,24 +76,6 @@ public class Payment implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public boolean validaNumberCard(String numberCard) {
-        if (numberCard.equals("4000000000000000")
-                || numberCard.equals("4111111111111111")
-                || numberCard.equals("4222222222222222")
-                || numberCard.equals("4333333333333333")
-                || numberCard.equals("4444444444444444")
-                || numberCard.equals("4555555555555555")
-                || numberCard.equals("4666666666666666")
-                || numberCard.equals("4777777777777777")
-                || numberCard.equals("4888888888888888")
-                || numberCard.equals("4999999999999999")
-                || numberCard.length() != 16) {
-            return false;
-        } else {
-            return true;
-        }
     }
 
     public double calculaValor() {

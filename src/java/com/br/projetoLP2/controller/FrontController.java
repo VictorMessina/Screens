@@ -49,29 +49,37 @@ public class FrontController extends HttpServlet {
             if (command.startsWith("user")) {
                 int code = 0;
                 if (command.endsWith("insert")) { // insert - insere um novo usuario no banco de dados
-
-                    String owner = request.getParameter("owner");
-                    String email = request.getParameter("email");
-                    String cpf = request.getParameter("cpf");
-                    String bday = request.getParameter("bday");
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                    Date bday2 = null;
-                    try {
-                        bday2 = formatter.parse(bday);
-                    } catch (ParseException ex) {
-                        Logger.getLogger(FrontController.class.getName()).log(Level.SEVERE, null, ex);
+                    
+                    if(!UserManager.validaCPF(request.getParameter("cpf"))){
+                        rd = request.getRequestDispatcher("/register.jsp");
+                        rd.forward(request, response);
                     }
+                    
+                    else{
 
-                    User user = new User();
+                        String owner = request.getParameter("owner");
+                        String email = request.getParameter("email");
+                        String cpf = request.getParameter("cpf");
+                        String bday = request.getParameter("bday");
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                        Date bday2 = null;
+                        try {
+                            bday2 = formatter.parse(bday);
+                        } catch (ParseException ex) {
+                            Logger.getLogger(FrontController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
 
-                    user.setOwner(owner);
-                    user.setEmail(email);
-                    user.setCpf(cpf);
-                    user.setBday(bday2);
-                    user.setUserType(1);
+                        User user = new User();
 
-                    code = UserManager.insert(user);
-                    //request.getSession().setAttribute("owner",owner);
+                        user.setOwner(owner);
+                        user.setEmail(email);
+                        user.setCpf(cpf);
+                        user.setBday(bday2);
+                        user.setUserType(1);
+
+                        code = UserManager.insert(user);
+                        //request.getSession().setAttribute("owner",owner);
+                    }
                 }
 
                 if (code == 1) {
@@ -186,22 +194,14 @@ public class FrontController extends HttpServlet {
                     String types = request.getParameter("types");
 
                     code = AccountManager.insert(types);
-                }
-
-                if (code == 1) {
-                    rd = request.getRequestDispatcher("/register4.jsp");
-                    rd.forward(request, response);
-                } else {
-                    rd = request.getRequestDispatcher("/erroLogin.jsp");
-                    String mensagem = "";
-                    switch (code) {
-                        case -5:
-                            mensagem = "ERROR on data base. try again";
-                            break;
+                    
+                    if (code == 1) {
+                        rd = request.getRequestDispatcher("/register4.jsp");
+                        rd.forward(request, response);
+                    }else {
+                        rd = request.getRequestDispatcher("/register3.jsp");
+                        rd.forward(request, response);
                     }
-                    request.getSession().setAttribute("code", mensagem);
-                    rd.forward(request, response);
-                    //response.sendRedirect("erroLogin.jsp"); // pode substituir a linha de cima mas nao mantem todas as informações na session
                 }
             }//FIM IF ACCOUNT
             
@@ -209,23 +209,29 @@ public class FrontController extends HttpServlet {
                 int code = 0;
                 if (command.endsWith("insert")) { // insert - insere um novo pagamento no banco de dados
 
-                    
-                    Payment payment = new Payment ();
-                    
-                    String numberCard = request.getParameter("numberCard");
-                    
-                    Double total = 0.0;
-                    
-                    Date paymentDate = new Date();
-                    
-                    String status = "Em aberto";
+                    if(!PaymentManager.validaNumberCard(request.getParameter("numberCard"))){
+                        rd = request.getRequestDispatcher("/register4.jsp");
+                        rd.forward(request, response);
+                    }
+                    else{
+                        
+                        String numberCard = request.getParameter("numberCard");
+                        
+                        Double total = 0.0;
 
-                    payment.setNumberCard(numberCard);
-                    payment.setTotal(total);
-                    payment.setPaymentDate(paymentDate);
-                    payment.setStatus(status);
+                        Date paymentDate = new Date();
 
-                    code = PaymentManager.insert(payment);
+                        String status = "Em aberto";
+                        
+                        Payment payment = new Payment ();
+                        
+                        payment.setNumberCard(numberCard);
+                        payment.setTotal(total);
+                        payment.setPaymentDate(paymentDate);
+                        payment.setStatus(status);
+                        
+                        code = PaymentManager.insert(payment);
+                    }
                 }
 
                 if (code == 1) {
