@@ -113,6 +113,38 @@ public class MovieDAO implements GenericDAO<Movie> {
         }
         return movie;
     }
+    public Movie readByID(int idMovie) {
+        Movie movie = new Movie();
+        //2 - criar String SQL
+        String sql = "Select * from Movie_ where id_Movie=?";
+        try {
+            //2a - criar o preparedStatement
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,idMovie);
+
+            //3- executa a query 
+            ResultSet rs = ps.executeQuery(); // retorna um objeto do tipo resultSet (grande objeto, 
+            // mapa de registros do banco)
+
+            //4 - mostrar os resultados do resutSet
+            while (rs.next()) {
+                movie.setId_Movie(rs.getInt("id_Movie"));
+                movie.setTitle(rs.getString("title"));
+                movie.setYears(rs.getInt("years"));
+                movie.setDirector(rs.getString("director"));
+                movie.setClassification(rs.getInt("classification"));
+                movie.setGenre(rs.getString("genre"));
+                movie.setUrl(rs.getString("url"));
+            }
+            //5-fecha a conexao com o DB e com o PerparedStatement
+            ps.close();
+            rs.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return movie;
+    }
 
     @Override
     public boolean update(Movie movie) {

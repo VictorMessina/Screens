@@ -51,7 +51,8 @@ create table Movie_ (
     years int not null,
     director varchar (50),
     classification int not null,
-    genre varchar (20)
+    genre varchar (20),
+    url varchar (50)
 );
 
 
@@ -62,11 +63,6 @@ select*from Access_;
 select*from Account_;
 select*from Payment_;
 select*from Movies_
-
-Drop table User_;
-Drop table Access_;
-Drop table Account_;
-Drop table Payment_;
 
 insert into MOVIE_ (title, years, director, classification, genre, url) values ('Os Vingadores', 2012, 'Joss Whedon', 12, 'Aventura', 'https://www.youtube.com/embed/6Y6zOSn8ff4');
 
@@ -122,7 +118,27 @@ insert into MOVIE_ (title, years, director, classification, genre, url) values (
 
 insert into MOVIE_ (title, years, director, classification, genre, url) values ('O Senhor dos Anéis – O Retorno do Rei', 2003, 'Peter Jackson', 12, 'Aventura', 'https://www.youtube.com/embed/Q9wZCGjBxyU');
 
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Velozes e Furiosos 1', 2001, 'Rob Cohen',14, 'Ação', 'https://www.youtube.com/embed/4bEMXlQXiS0');
+
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('+ Velozes e + Furiosos', 2003, 'John Singleton', 14, 'Ação', 'https://www.youtube.com/embed/ONs4_PtakGc');
+
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Velozes e Furiosos 3 - Desafio em Tokyo', 2006, 'Justin Lin', 14, 'Ação', 'https://www.youtube.com/embed/HVQWZkd8cDk');
+
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Velozes e Furiosos 4', 2009, 'Justin Lin', 14, 'Ação', 'https://www.youtube.com/embed/yAr404wj--Y');
+
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Velozes e Furiosos 5 - Operação Rio', 2011, 'Justin Lin', 14, 'Ação', 'https://www.youtube.com/embed/FCN-B8SZVlo');
+
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Velozes e Furiosos 6', 2013, 'Justin Lin', 14, 'Ação', 'https://www.youtube.com/embed/KkzzyAUJqkY');
+
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Velozes e Furiosos 7', 2015, 'James Wan', 14, 'Ação', 'https://www.youtube.com/embed/hujU0dw6Erk');
+
 update USER_ SET USERTYPE=2 WHERE OWNER='Victor';
+
+Drop table User_;
+Drop table Access_;
+Drop table Account_;
+Drop table Payment_;
+Drop table Movie_;
 
 -- Alter table User_Projeto add column user_type int;
 update user_projeto set user_type=1;
