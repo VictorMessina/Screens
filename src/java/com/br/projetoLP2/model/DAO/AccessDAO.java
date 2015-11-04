@@ -78,7 +78,7 @@ public class AccessDAO implements GenericDAO<Access> {
                 Account account = new Account();
                 
                 account.setId_Account(rs.getInt("id_Account"));
-                account.setAmount(rs.getDouble("amount"));
+                account.setAmount(rs.getInt("amount"));
                 account.setTypes(rs.getString("types"));
                 
                 Payment payment = new Payment();
@@ -132,7 +132,7 @@ public class AccessDAO implements GenericDAO<Access> {
                 Account account = new Account();
                 
                 account.setId_Account(rs.getInt("id_Account"));
-                account.setAmount(rs.getDouble("amount"));
+                account.setAmount(rs.getInt("amount"));
                 account.setTypes(rs.getString("types"));
                 
                 Payment payment = new Payment();

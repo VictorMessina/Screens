@@ -13,20 +13,24 @@ public class AccountManager {
         AccountDAO accountDAO = new AccountDAO();
         Account account;
 
+         int result = -1;
+         
         if (types.equals("Diamond")) {
-            account = new Account(40, types);
+            result = 40;
         } else if (types.equals("Gold")) {
-            account = new Account(30, types);
+            result = 30;
+            
         } else {
-            account = new Account(20, types);
+            result = 20;
         }
+            account = new Account(result, types);
 
         boolean inserted = accountDAO.insert(account);
+        
 
         if (inserted) {
             System.out.println("Account " + account.getTypes() + " inserted ");
-            return 1;
         }
-        return -5;
+            return result;
     }
 }

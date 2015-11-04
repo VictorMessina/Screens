@@ -9,16 +9,16 @@ import java.io.Serializable;
 public class Account implements Serializable {
 
     private int id_Account;
-    private double amount;
+    private int amount;
     private String types;
 
-    public Account(int id_Account, double amount, String types) {
+    public Account(int id_Account, int amount, String types) {
         this.id_Account = id_Account;
         this.amount = amount;
         this.types = types;
     }
 
-    public Account(double amount, String types) {
+    public Account(int amount, String types) {
         this.id_Account = -1;
         this.amount = amount;
         this.types = types;
@@ -38,11 +38,11 @@ public class Account implements Serializable {
         this.id_Account = id_Account;
     }
 
-    public double getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 

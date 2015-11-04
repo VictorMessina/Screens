@@ -197,8 +197,9 @@ public class FrontController extends HttpServlet {
 
                     code = AccountManager.insert(types);
                     
-                    if (code == 1) {
+                    if (code != -1) {
                         rd = request.getRequestDispatcher("/register4.jsp");
+                        request.getSession().setAttribute("valorConta", code);
                         rd.forward(request, response);
                     }else {
                         rd = request.getRequestDispatcher("/register3.jsp");
@@ -219,7 +220,7 @@ public class FrontController extends HttpServlet {
                         
                         String numberCard = request.getParameter("numberCard");
                         
-                        Double total = 0.0;
+                        int total = (int) request.getSession().getAttribute("valorConta");
 
                         Date paymentDate = new Date();
 

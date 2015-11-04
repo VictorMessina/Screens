@@ -60,7 +60,7 @@ public class AccountDAO implements GenericDAO<Account> {
 
             while (rs.next()) {
                 int id_Account = rs.getInt("id_Account");
-                Double amount = rs.getDouble("amount");
+                int amount = rs.getInt("amount");
                 String types = rs.getString("types");
                 Account account = new Account(id_Account, amount, types);
                 accounts.add(account);
@@ -85,7 +85,7 @@ public class AccountDAO implements GenericDAO<Account> {
         try {
             ps = conn.prepareStatement(sql);
 
-            ps.setDouble(1, account.getAmount());
+            ps.setInt(1, account.getAmount());
             ps.setString(2, account.getTypes());
             ps.setInt(3, account.getId_Account());
 
@@ -129,5 +129,4 @@ public class AccountDAO implements GenericDAO<Account> {
         }
         return resp;
     }
-
 }

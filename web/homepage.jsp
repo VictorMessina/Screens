@@ -52,7 +52,7 @@
                         <iframe width="360" height="160" src="${movie.getUrl()}" frameborder="0" allowfullscreen></iframe>
                         <div class="box">
                             <p>
-                                Titulo: ${movie.getTitle()}
+                                ${movie.getTitle()}
                                 <br> Ano: ${movie.getYears()}
                                 <br> Diretor: ${movie.getDirector()}
                                 <br> Classificação: ${movie.getClassification()}
