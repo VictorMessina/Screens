@@ -16,6 +16,10 @@ public class MovieDAO implements GenericDAO<Movie> {
 
     private Connection conn;
 
+    public MovieDAO() {
+        this.conn = ConnectionDB.getInstance();
+    }
+
     @Override
     public boolean insert(Movie movie) {
         boolean resp = false;
@@ -64,7 +68,8 @@ public class MovieDAO implements GenericDAO<Movie> {
                 String director = rs.getString("director");
                 int classification = rs.getInt("classification");
                 String genre = rs.getString("genre");
-                Movie movie = new Movie(id_Movie, title, years, director, classification, genre);
+                String url = rs.getString("url");
+                Movie movie = new Movie(id_Movie, title, years, director, classification, genre,url);
                 movies.add(movie);
             }
             ps.close();
@@ -97,6 +102,7 @@ public class MovieDAO implements GenericDAO<Movie> {
                 movie.setDirector(rs.getString("director"));
                 movie.setClassification(rs.getInt("classification"));
                 movie.setGenre(rs.getString("genre"));
+                movie.setUrl(rs.getString("url"));
             }
             //5-fecha a conexao com o DB e com o PerparedStatement
             ps.close();
@@ -112,7 +118,7 @@ public class MovieDAO implements GenericDAO<Movie> {
     public boolean update(Movie movie) {
         boolean resp = false;
 
-        String sql = "update Movie_ set title=?,years=?,director=?,classification=?,genre=? where id_Movie=?";
+        String sql = "update Movie_ set title=?,years=?,director=?,classification=?,genre=?,url=? where id_Movie=?";
 
         PreparedStatement ps;
 
@@ -124,7 +130,8 @@ public class MovieDAO implements GenericDAO<Movie> {
             ps.setString(3, movie.getDirector());
             ps.setInt(4, movie.getClassification());
             ps.setString(5, movie.getGenre());
-            ps.setInt(6, movie.getId_Movie());
+            ps.setString(6,movie.getUrl());
+            ps.setInt(7, movie.getId_Movie());
 
             int resposta = ps.executeUpdate();
 

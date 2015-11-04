@@ -5,6 +5,7 @@ import com.br.projetoLP2.business.AccountManager;
 import com.br.projetoLP2.business.AccessManager;
 import com.br.projetoLP2.business.PaymentManager;
 import com.br.projetoLP2.model.Access;
+import com.br.projetoLP2.model.DAO.MovieDAO;
 import com.br.projetoLP2.model.Payment;
 import com.br.projetoLP2.model.User;
 import java.io.IOException;
@@ -110,6 +111,7 @@ public class FrontController extends HttpServlet {
                     String password = request.getParameter("password");
                     code = AccessManager.authorize(userName, password);
                     request.getSession().setAttribute("access", AccessManager.getAccess());
+                    request.getSession().setAttribute("movies", new MovieDAO().read());
                     // substitui as duas linhas comentada abaixo
                     //request.getSession().setAttribute("password",password); // substitui as duas linhas comentada abaixo
 

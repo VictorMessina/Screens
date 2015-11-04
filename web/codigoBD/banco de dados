@@ -42,21 +42,30 @@ create table Payment_ (
     status varchar (20)
 );
 
--- colocar para linkar tabela ordem -- -- join Order_ on User_.id_User = id_Order;--
+-- Table movies --
+
+create table Movie_ (
+    id_Movie int not null primary key generated always as identity 
+    (start with 1, increment by 1),
+    title varchar (50),
+    years int not null,
+    director varchar (50),
+    classification int not null,
+    genre varchar (20)
+);
+
 
 select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account join Payment_ on Access_.id_Access = id_Payment;
-select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account join Payment_ on Access_.id_Access = id_Payment join Order_ on Access_.id_Access = id_Order;
 
 select*from User_;
 select*from Access_;
 select*from Account_;
-select*from Order_;
 select*from Payment_;
+select*from Movies_
 
 Drop table User_;
 Drop table Access_;
 Drop table Account_;
-Drop table Order_;
 Drop table Payment_;
 
 -- Alter table User_Projeto add column user_type int;
@@ -69,24 +78,6 @@ update user_projeto set bday = '1995-10-23' WHERE USERNAME='victor'; --
 
 update USER_ SET USERTYPE=2 WHERE OWNER='Victor';
 
+insert into MOVIE_ (title,years,director,classification,genre,url) values ('Os vingadores',2012,'Joss Whendon', 12,'ação','https://www.youtube.com/embed/6Y6zOSn8ff4');
+
 select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account where userName=?;
-
--- order table --
-
-create table Order_ (
-    id_Order int not null primary key generated always as identity (start with 1, increment by 1),
-    dateOrder Date,
-    status varchar (20)
-);
-
--- Table movies --
-
-create table Movie_ (
-    id_Movie int not null primary key generated always as identity 
-    (start with 1, increment by 1),
-    title varchar (50),
-    years int not null,
-    director varchar (50),
-    classification int not null,
-    genre varchar (20)
-);

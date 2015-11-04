@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -41,8 +41,8 @@
 
         <h2> Read </h2>
         <c:forEach var="itens" items="${accessList}">
-            ${itens}
-            
+            <c:out value="${itens}"> </c:out>
+    
         </c:forEach> 
    
         <%--  
