@@ -3,6 +3,7 @@ package com.br.projetoLP2.controller;
 import com.br.projetoLP2.business.UserManager;
 import com.br.projetoLP2.business.AccountManager;
 import com.br.projetoLP2.business.AccessManager;
+import com.br.projetoLP2.business.MovieManager;
 import com.br.projetoLP2.business.PaymentManager;
 import com.br.projetoLP2.model.Access;
 import com.br.projetoLP2.model.DAO.MovieDAO;
@@ -144,7 +145,7 @@ public class FrontController extends HttpServlet {
                     rd.forward(request, response);
                 } else if (command.endsWith("homepage")) {
                     request.getSession().setAttribute("access", AccessManager.getAccess());
-                    rd = request.getRequestDispatcher("/homepage.jsp"); // redireciona para pagina perfil
+                    rd = request.getRequestDispatcher("/homepage.jsp"); // redireciona para pagina home
                     rd.forward(request, response);
                 }
 
@@ -278,11 +279,16 @@ public class FrontController extends HttpServlet {
                     rd = request.getRequestDispatcher("/deleteMovie.jsp");
                     rd.forward(request, response);
                 }
+                
+                if(command.endsWith("functions")){
+                    rd = request.getRequestDispatcher("/admFunctions.jsp");
+                    rd.forward(request, response);
+                }
 
             }//FIM IF ADM
 
             if (command.startsWith("movie")) {
-
+                int code = 0;
                 MovieDAO movieDAO = new MovieDAO();
                 if (command.endsWith("insert")) {
 
@@ -295,35 +301,40 @@ public class FrontController extends HttpServlet {
 
                     Movie movie = new Movie(title, years, director, classification, genre, url);
 
-                    movieDAO.insert(movie);
+                    code = MovieManager.insert(movie);
 
-                    rd = request.getRequestDispatcher("/admFunctions.jsp");
-                    rd.forward(request, response);
+                    if (code == 1) {
+                        rd = request.getRequestDispatcher("/admFunctions.jsp");
+                        rd.forward(request, response);
+                    } else {
+                        rd = request.getRequestDispatcher("/insertMovie.jsp");
+                        rd.forward(request, response);
+                    }
                 }
 
                 if (command.endsWith("delete")) {
                     int id = Integer.parseInt(request.getParameter("idMovie"));
 
-                    movieDAO.delete(movieDAO.readByID(id));
+                    code = MovieManager.delete(id);
 
-                    rd = request.getRequestDispatcher("/admFunctions.jsp");
-                    rd.forward(request, response);
+                    if (code == 1) {
+                        rd = request.getRequestDispatcher("/admFunctions.jsp");
+                        rd.forward(request, response);
+                    } else {
+                        rd = request.getRequestDispatcher("/deleteMovie.jsp");
+                        rd.forward(request, response);
+                    }
                 }
 
                 if (command.endsWith("updateTitle")) {
 
-                    String nome = request.getParameter("nomePesquisado");
+                    int idMovie = Integer.parseInt(request.getParameter("idMovie"));
 
                     String title = request.getParameter("title");
 
-                    Movie filmeSelecionado = movieDAO.readByName(nome);
+                    code = MovieManager.updateTitle(idMovie, title);
 
-                    filmeSelecionado.setTitle(title);
-
-                    boolean resp = movieDAO.update(filmeSelecionado);
-
-                    if (resp) {
-
+                    if (code == 1) {
                         rd = request.getRequestDispatcher("/admFunctions.jsp");
                         rd.forward(request, response);
                     } else {
@@ -332,17 +343,14 @@ public class FrontController extends HttpServlet {
                     }
 
                 } else if (command.endsWith("updateYear")) {
-                    String nome = request.getParameter("nomePesquisado");
+
+                    int idMovie = Integer.parseInt(request.getParameter("idMovie"));
 
                     int year = Integer.parseInt(request.getParameter("years"));
 
-                    Movie filmeSelecionado = movieDAO.readByName(nome);
+                    code = MovieManager.updateYear(idMovie, year);
 
-                    filmeSelecionado.setYears(year);
-
-                    boolean resp = movieDAO.update(filmeSelecionado);
-
-                    if (resp) {
+                    if (code == 1) {
                         rd = request.getRequestDispatcher("/admFunctions.jsp");
                         rd.forward(request, response);
                     } else {
@@ -351,17 +359,13 @@ public class FrontController extends HttpServlet {
                     }
                 } else if (command.endsWith("updateDirector")) {
 
-                    String nome = request.getParameter("nomePesquisado");
+                    int idMovie = Integer.parseInt(request.getParameter("idMovie"));
 
                     String director = request.getParameter("director");
 
-                    Movie filmeSelecionado = movieDAO.readByName(nome);
+                    code = MovieManager.updateDirector(idMovie, director);
 
-                    filmeSelecionado.setDirector(director);
-
-                    boolean resp = movieDAO.update(filmeSelecionado);
-
-                    if (resp) {
+                    if (code == 1) {
                         rd = request.getRequestDispatcher("/admFunctions.jsp");
                         rd.forward(request, response);
                     } else {
@@ -369,18 +373,14 @@ public class FrontController extends HttpServlet {
                         rd.forward(request, response);
                     }
                 } else if (command.endsWith("updateClassification")) {
-                    
-                    String nome = request.getParameter("nomePesquisado");
+
+                    int idMovie = Integer.parseInt(request.getParameter("idMovie"));
 
                     int classification = Integer.parseInt(request.getParameter("classification"));
 
-                    Movie filmeSelecionado = movieDAO.readByName(nome);
+                    code = MovieManager.updateClassification(idMovie, classification);
 
-                    filmeSelecionado.setClassification(classification);
-
-                    boolean resp = movieDAO.update(filmeSelecionado);
-
-                    if (resp) {
+                    if (code == 1) {
                         rd = request.getRequestDispatcher("/admFunctions.jsp");
                         rd.forward(request, response);
                     } else {
@@ -388,18 +388,14 @@ public class FrontController extends HttpServlet {
                         rd.forward(request, response);
                     }
                 } else if (command.endsWith("updateGenre")) {
-                    
-                    String nome = request.getParameter("nomePesquisado");
+
+                    int idMovie = Integer.parseInt(request.getParameter("idMovie"));
 
                     String genre = request.getParameter("genre");
 
-                    Movie filmeSelecionado = movieDAO.readByName(nome);
+                    code = MovieManager.updateGenre(idMovie, genre);
 
-                    filmeSelecionado.setGenre(genre);
-
-                    boolean resp = movieDAO.update(filmeSelecionado);
-
-                    if (resp) {
+                    if (code == 1) {
                         rd = request.getRequestDispatcher("/admFunctions.jsp");
                         rd.forward(request, response);
                     } else {
@@ -407,18 +403,14 @@ public class FrontController extends HttpServlet {
                         rd.forward(request, response);
                     }
                 } else if (command.endsWith("updateUrl")) {
-                    
-                    String nome = request.getParameter("nomePesquisado");
+
+                    int idMovie = Integer.parseInt(request.getParameter("idMovie"));
 
                     String url = request.getParameter("url");
 
-                    Movie filmeSelecionado = movieDAO.readByName(nome);
+                    code = MovieManager.updateUrl(idMovie, url);
 
-                    filmeSelecionado.setUrl(url);
-
-                    boolean resp = movieDAO.update(filmeSelecionado);
-
-                    if (resp) {
+                    if (code == 1) {
                         rd = request.getRequestDispatcher("/admFunctions.jsp");
                         rd.forward(request, response);
                     } else {
@@ -429,7 +421,6 @@ public class FrontController extends HttpServlet {
             }//FIM DO IF MOVIE
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

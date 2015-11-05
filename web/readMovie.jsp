@@ -38,15 +38,18 @@
             </div>
         </div>
 
-            <!-- Banner -->
-            <div id="banner" class="container">
-                <section>
-                    <c:forEach var="movie" items="${movies}">
-                        ${movie.getTitle()} <hr>
-                    </c:forEach>
-                </section>
-            </div>	
-        </div>
+        <!-- Banner -->
+        <div id="banner" class="container">
+            <section>
+                <c:if test="${movies.size()==0}">
+                    <c:out value="A lista de filmes esta vazia" > </c:out>
+                </c:if>
+                <c:forEach var="movie" items="${movies}">
+                    ${movie.getTitle()} <hr>
+                </c:forEach>
+            </section>
+            <a href="FrontController?command=adm.functions">Home ADM</a>
+        </div>	
     </body>
 </html>
 

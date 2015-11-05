@@ -1,10 +1,11 @@
 <%-- 
     Document   : updateMovie
     Created on : 04/11/2015, 18:16:44
-    Author     : Patricia
+    Author     : 31449530
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,6 +20,15 @@
         <link rel="stylesheet" href="css/skel.css" />
         <link rel="stylesheet" href="css/style.css" />
         </noscript>
+        <style>
+            select {
+                color: #000;
+                font-family: 'Raleway', sans-serif;
+                font-size: 12pt;
+                font-weight: 300;
+                line-height: 26px;
+            }
+        </style>
     </head>
     <body>
         <!-- Site -->
@@ -39,11 +49,19 @@
 
         <!-- Banner -->
         <div id="banner" class="container">
-
+            <c:if test="${movies.size()==0}">
+                <c:out value="A lista de filmes esta vazia"> </c:out>
+            </c:if>
             <section>
+                <a href="FrontController?command=adm.functions">Home ADM</a>
                 <p> Mudar titulo do filme: </p>
                 <form action="FrontController" method="POST">
-                    <p> Nome para pesquisa:<input type="text" name="nomePesquisado" placeholder="Title" maxlength="50" required/></p>
+                    <select name="idMovie">
+                        <option value="-1"> nome Filme</option>
+                        <c:forEach var="movie" items="${movies}">
+                            <option value="${movie.getId_Movie()}"> ${movie.getTitle()} </option>
+                        </c:forEach>
+                    </select>
                     <p> Title:  <input type="text" name="title" placeholder="Title" maxlength="50" required/></p>
                     <input type="hidden" name="command" value="movie.updateTitle" />
                     <p> <input type="submit" value="Mudar Titulo"/></p>
@@ -55,7 +73,12 @@
             <section>
                 <p> Mudar ano do filme: </p>
                 <form action="FrontController" method="POST">
-                    <p> Nome para pesquisa:<input type="text" name="nomePesquisado" placeholder="Title" maxlength="50" required/></p>
+                    <select name="idMovie">
+                        <option value="-1"> nome Filme</option>
+                        <c:forEach var="movie" items="${movies}">
+                            <option value="${movie.getId_Movie()}"> ${movie.getTitle()} </option>
+                        </c:forEach>
+                    </select>                    
                     <p> Year: <input type="text" name="years"  placeholder="Year" maxlength="4" required/></p>
                     <input type="hidden" name="command" value="movie.updateYear" />
                     <p> <input type="submit" value="Mudar Ano"/></p>
@@ -68,7 +91,12 @@
             <section>
                 <p> Mudar diretor do filme: </p>
                 <form action="FrontController" method="POST">
-                    <p> Nome para pesquisa:<input type="text" name="nomePesquisado" placeholder="Title" maxlength="50" required/></p>
+                    <select name="idMovie">
+                        <option value="-1"> nome Filme</option>
+                        <c:forEach var="movie" items="${movies}">
+                            <option value="${movie.getId_Movie()}"> ${movie.getTitle()} </option>
+                        </c:forEach>
+                    </select>                    
                     <p> Director: <input type="text" name="director"  placeholder="Director" maxlength="20" required/></p>
                     <input type="hidden" name="command" value="movie.updateDirector" />
                     <p> <input type="submit" value="Mudar Diretor"/></p>
@@ -80,7 +108,12 @@
             <section>
                 <p> Mudar classificação do filme: </p>
                 <form action="FrontController" method="POST">
-                    <p> Nome para pesquisa:<input type="text" name="nomePesquisado" placeholder="Title" maxlength="50" required/></p>
+                    <select name="idMovie">
+                        <option value="-1"> nome Filme</option>
+                        <c:forEach var="movie" items="${movies}">
+                            <option value="${movie.getId_Movie()}"> ${movie.getTitle()} </option>
+                        </c:forEach>
+                    </select>                    
                     <p> Classification: <input type="text" name="classification" placeholder="Classification" required/></p>
                     <input type="hidden" name="command" value="movie.updateClassification" />
                     <p> <input type="submit" value="Mudar Classificação"/></p>
@@ -93,7 +126,12 @@
             <section>
                 <p> Mudar genero do filme: </p>
                 <form action="FrontController" method="POST">
-                    <p> Nome para pesquisa:<input type="text" name="nomePesquisado" placeholder="Title" maxlength="50" required/></p>
+                    <select name="idMovie">
+                        <option value="-1"> nome Filme</option>
+                        <c:forEach var="movie" items="${movies}">
+                            <option value="${movie.getId_Movie()}"> ${movie.getTitle()} </option>
+                        </c:forEach>
+                    </select>
                     <p> Genre: <input type="text" name="genre" placeholder="Genre" maxlength="20" required/></p>
                     <input type="hidden" name="command" value="movie.updateGenre" />
                     <p> <input type="submit" value="Mudar Genero"/></p>
@@ -105,13 +143,17 @@
             <section>
                 <p> Mudar url do filme: </p>
                 <form action="FrontController" method="POST">
-                    <p> Nome para pesquisa:<input type="text" name="nomePesquisado" placeholder="Title" maxlength="50" required/></p>
+                    <select name="idMovie">
+                        <option value="-1"> nome Filme</option>
+                        <c:forEach var="movie" items="${movies}">
+                            <option value="${movie.getId_Movie()}"> ${movie.getTitle()} </option>
+                        </c:forEach>
+                    </select>
                     <p> URL: <input type="text" name="url" placeholder="URL" maxlength="50" required/></p>
                     <input type="hidden" name="command" value="movie.updateUrl" />
                     <p> <input type="submit" value="Mudar URL"/></p>
                 </form>
             </section>
-        </div>	
-    </div>
-</body>
+        </div>
+    </body>
 </html>

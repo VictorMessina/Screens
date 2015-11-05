@@ -1,7 +1,7 @@
 <%-- 
     Document   : deleteMovie
     Created on : 04/11/2015, 16:43:36
-    Author     : Patricia
+    Author     : 31449530
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -63,19 +63,19 @@
                     <p> <input type="submit" value="Delete Movie"/></p>
                 </form>
             </section>
+            <a href="FrontController?command=adm.functions">Home ADM</a>
         </div>	
-    </div>
 
-    <!-- Rodapé -->
-    <div id="footer">
-        <div class="container">
-            <p>Facebook: <br>Filippi, Letícia, Victor</p>
-            <ul class="icons">
-                <li><a href="https://www.facebook.com/FilippiLuigi" class="fa fa-facebook"></a></li>
-                <li><a href="https://www.facebook.com/letiglow" class="fa fa-facebook"></a></li>
-                <li><a href="https://www.facebook.com/victor.messina.7" class="fa fa-facebook"></a></li>
-            </ul>
+        <!-- Rodapé -->
+        <div id="footer">
+            <div class="container">
+                <p>Facebook: <br>Filippi, Letícia, Victor</p>
+                <ul class="icons">
+                    <li><a href="https://www.facebook.com/FilippiLuigi" class="fa fa-facebook"></a></li>
+                    <li><a href="https://www.facebook.com/letiglow" class="fa fa-facebook"></a></li>
+                    <li><a href="https://www.facebook.com/victor.messina.7" class="fa fa-facebook"></a></li>
+                </ul>
+            </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>

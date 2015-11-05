@@ -52,7 +52,8 @@
                     <p> E-mail: <h2>${access.getUser().getEmail()}</h2></p>
                     <p> CPF: <h2>${access.getUser().getCpf()}</h2></p>
                     <p> Tipo de conta: <h2>${access.getAccount().getTypes()}</h2></p>
-                    <p> NumberCard: <h2> ${access.getPayment().getNumberCard()}</h2> 
+                    <p> NumberCard: <h2> ${access.getPayment().getNumberCard()}</h2> </p>
+                    <p> Status Payment: <h2> ${access.getPayment().getStatus()}</h2> </p>
                 </section>
             </div>	
         </div>
