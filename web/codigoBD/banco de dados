@@ -1,5 +1,4 @@
--- TABLE User
-
+-- TABLE USER
 create table User_ (
     id_User int not null primary key generated always as identity
     (start with 1,increment by 1),
@@ -10,9 +9,7 @@ create table User_ (
     userType int
 );
 
-
--- Table access --
-
+-- TABLE ACCESS
 create table Access_ (
     id_Access int not null primary key generated always as identity
     (start with 1,increment by 1),
@@ -21,8 +18,7 @@ create table Access_ (
     foreign key (id_Access) references User_ (id_User)
 );
 
--- table account --
-
+-- TABLE ACCOUNT
 create table Account_ (
     id_Account int not null primary key generated always as identity
         (start with 1, increment by 1),
@@ -31,8 +27,7 @@ create table Account_ (
     foreign key (id_Account) references User_ (id_User)
 );
 
--- payment table -- 
-
+-- TABLE PAYMENT
 create table Payment_ (
     id_Payment int not null primary key generated always as identity
         (start with 1, increment by 1 ),
@@ -42,8 +37,7 @@ create table Payment_ (
     status varchar (20)
 );
 
--- Table movies --
-
+-- TABLE MOVIE
 create table Movie_ (
     id_Movie int not null primary key generated always as identity 
     (start with 1, increment by 1),
@@ -56,89 +50,60 @@ create table Movie_ (
 );
 
 
-select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account join Payment_ on Access_.id_Access = id_Payment;
+select * from Access_ 
+inner join User_ on Access_.id_Access = User_.id_User 
+join Account_ on Access_.id_Access = Account_.id_Account 
+join Payment_ on Access_.id_Access = id_Payment;
 
-select*from User_;
-select*from Access_;
-select*from Account_;
-select*from Payment_;
-select*from Movies_
+select * from User_;
+select * from Access_;
+select * from Account_;
+select * from Payment_;
+select * from Movie_;
 
 insert into MOVIE_ (title, years, director, classification, genre, url) values ('Os Vingadores', 2012, 'Joss Whedon', 12, 'Aventura', 'https://www.youtube.com/embed/6Y6zOSn8ff4');
-
 insert into MOVIE_ (title, years, director, classification, genre, url) values ('Vingadores: Era de Ultron', 2015, 'Joss Whedon', 10, 'Aventura', 'https://www.youtube.com/embed/I4lgl7ImHSg');
-
 insert into MOVIE_ (title, years, director, classification, genre, url) values ('Thor', 2011, 'Kenneth Branagh', 10, 'Aventura', 'https://www.youtube.com/embed/oEn0xdiRUww/');
-
 insert into MOVIE_ (title, years, director, classification, genre, url) values ('Thor: O Mundo Sombrio', 2013, 'Alan Taylor', 12, 'Aventura', 'https://www.youtube.com/embed/Sph1S128Bqo');
-
 insert into MOVIE_ (title, years, director, classification, genre, url) values ('Capitão América: O Primeiro Vingador', 2011, 'Joe Johnston', 10, 'Aventura', 'https://www.youtube.com/embed/TYziZe-2UOk');
-
 insert into MOVIE_ (title, years, director, classification, genre, url) values ('Capitão América 2: O Soldado Invernal', 2014, 'Anthony Russo', 12, 'Aventura', 'https://www.youtube.com/embed/kJD-wmwbXbI');
-
 insert into MOVIE_ (title, years, director, classification, genre, url) values ('Homem de Ferro', 2008, 'Jon Favreau', 12, 'Aventura', 'https://www.youtube.com/embed/xXAdp_KJ-0A');
-
 insert into MOVIE_ (title, years, director, classification, genre, url) values ('Homem de Ferro 2', 2010, 'Jon Favreau', 12, 'Aventura', 'https://www.youtube.com/embed/b5qs_RtpkhA');
-
 insert into MOVIE_ (title, years, director, classification, genre, url) values ('Homem de Ferro 3', 2013, 'Shane Black', 12, 'Aventura', 'https://www.youtube.com/embed/s7MHXDEdjS0');
-
-insert into MOVIE_ (title, years, director, classification, genre, url) values ('Batman Begins', 2005, 'Christopher Nolan', 12, 'Ação', 'https://www.youtube.com/embed/T83bqrFySag');
-
-insert into MOVIE_ (title, years, director, classification, genre, url) values ('Batman – O Cavaleiro das Trevas', 2008, 'Christopher Nolan', 12, 'Crime', 'https://www.youtube.com/embed/4gHh4TGxCK0');
-
-insert into MOVIE_ (title, years, director, classification, genre, url) values ('Batman – O Cavaleiro das Trevas Ressurge', 2012, 'Christopher Nolan', 12, 'Ação', 'https://www.youtube.com/embed/9ozuNGDDGM0');
-
-insert into MOVIE_ (title, years, director, classification, genre, url) values ('O Incrível Hulk', 2008, 'Louis Leterrier', 10, 'Ação', 'https://www.youtube.com/embed/Nda_yODI3zw');
-
-insert into MOVIE_ (title, years, director, classification, genre, url) values ('Harry Potter e a Pedra Filosofal', 2001, 'Chris Columbus', 0, 'Aventura', 'https://www.youtube.com/embed/772UlkDZSPY');
-
-insert into MOVIE_ (title, years, director, classification, genre, url) values ('Harry Potter e a Câmara Secreta', 2002, 'Chris Columbus', 0, 'Aventura', 'https://www.youtube.com/embed/tI-sP1BPEk4');
-
-insert into MOVIE_ (title, years, director, classification, genre, url) values ('Harry Potter e o Prisioneiro de Azkaban', 2004, 'Alfonso Cuarón', 0, 'Aventura', 'https://www.youtube.com/embed/V_JtCbmkPA0');
-
-insert into MOVIE_ (title, years, director, classification, genre, url) values ('Harry Potter e o Cálice de Fogo', 2005, 'Mike Newell', 10, 'Aventura', 'https://www.youtube.com/embed/RwJlOdtoHRE');
-
-insert into MOVIE_ (title, years, director, classification, genre, url) values ('Harry Potter e a Ordem da Fênix', 2007, 'David Yates', 0, 'Aventura', 'https://www.youtube.com/embed/RJwj8A9Dy1M');
-
-insert into MOVIE_ (title, years, director, classification, genre, url) values ('Harry Potter e o Enigma do Príncipe', 2009, 'David Yates', 12, 'Aventura', 'https://www.youtube.com/embed/wgkHfUaG1nI');
-
-insert into MOVIE_ (title, years, director, classification, genre, url) values ('Harry Potter e as Relíquias da Morte: Parte 1', 2010, 'David Yates', 12, 'Aventura', 'https://www.youtube.com/embed/-_GftUTRWHM');
-
-insert into MOVIE_ (title, years, director, classification, genre, url) values ('Harry Potter e as Relíquias da Morte: Parte 2', 2011, 'David Yates', 14, 'Aventura', 'https://www.youtube.com/embed/E79fa8bLfPA');
-
 insert into MOVIE_ (title, years, director, classification, genre, url) values ('O Hobbit - Uma Jornada Inesperada', 2012, 'Peter Jackson', 12, 'Aventura', 'https://www.youtube.com/embed/LOeBkxlxlsI');
-
 insert into MOVIE_ (title, years, director, classification, genre, url) values ('O Hobbit - A Desolação de Smaug', 2013, 'Peter Jackson', 12, 'Aventura', 'https://www.youtube.com/embed/T304nbvLVBE');
-
 insert into MOVIE_ (title, years, director, classification, genre, url) values ('O Hobbit – A Batalha dos Cinco Exércitos', 2014, 'Peter Jackson', 12, 'Aventura', 'https://www.youtube.com/embed/JOATtW3IoXA');
-
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Velozes e Furiosos 1', 2001, 'Rob Cohen', 14, 'Ação', 'https://www.youtube.com/embed/4bEMXlQXiS0');
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('+ Velozes e + Furiosos', 2003, 'John Singleton', 14, 'Ação', 'https://www.youtube.com/embed/ONs4_PtakGc');
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Velozes e Furiosos 3 - Desafio em Tokyo', 2006, 'Justin Lin', 14, 'Ação', 'https://www.youtube.com/embed/HVQWZkd8cDk');
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Velozes e Furiosos 4', 2009, 'Justin Lin', 14, 'Ação', 'https://www.youtube.com/embed/yAr404wj--Y');
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Velozes e Furiosos 5 - Operação Rio', 2011, 'Justin Lin', 14, 'Ação', 'https://www.youtube.com/embed/FCN-B8SZVlo');
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Velozes e Furiosos 6', 2013, 'Justin Lin', 14, 'Ação', 'https://www.youtube.com/embed/KkzzyAUJqkY');
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Velozes e Furiosos 7', 2015, 'James Wan', 14, 'Ação', 'https://www.youtube.com/embed/hujU0dw6Erk');
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Harry Potter e a Pedra Filosofal', 2001, 'Chris Columbus', 0, 'Aventura', 'https://www.youtube.com/embed/772UlkDZSPY');
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Harry Potter e a Câmara Secreta', 2002, 'Chris Columbus', 0, 'Aventura', 'https://www.youtube.com/embed/tI-sP1BPEk4');
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Harry Potter e o Prisioneiro de Azkaban', 2004, 'Alfonso Cuarón', 0, 'Aventura', 'https://www.youtube.com/embed/V_JtCbmkPA0');
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Harry Potter e o Cálice de Fogo', 2005, 'Mike Newell', 10, 'Aventura', 'https://www.youtube.com/embed/RwJlOdtoHRE');
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Harry Potter e a Ordem da Fênix', 2007, 'David Yates', 0, 'Aventura', 'https://www.youtube.com/embed/RJwj8A9Dy1M');
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Harry Potter e o Enigma do Príncipe', 2009, 'David Yates', 12, 'Aventura', 'https://www.youtube.com/embed/wgkHfUaG1nI');
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Harry Potter e as Relíquias da Morte¹', 2010, 'David Yates', 12, 'Aventura', 'https://www.youtube.com/embed/-_GftUTRWHM');
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Harry Potter e as Relíquias da Morte²', 2011, 'David Yates', 14, 'Aventura', 'https://www.youtube.com/embed/E79fa8bLfPA');
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Batman Begins', 2005, 'Christopher Nolan', 12, 'Ação', 'https://www.youtube.com/embed/T83bqrFySag');
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Batman – O Cavaleiro das Trevas', 2008, 'Christopher Nolan', 12, 'Crime', 'https://www.youtube.com/embed/4gHh4TGxCK0');
+insert into MOVIE_ (title, years, director, classification, genre, url) values ('Batman – O Cavaleiro das Trevas Ressurge', 2012, 'Christopher Nolan', 12, 'Ação', 'https://www.youtube.com/embed/9ozuNGDDGM0');
 insert into MOVIE_ (title, years, director, classification, genre, url) values ('O Senhor dos Anéis – A Sociedade do Anel', 2001, 'Peter Jackson', 12, 'Aventura', 'https://www.youtube.com/embed/IUerKBZHnBs');
-
 insert into MOVIE_ (title, years, director, classification, genre, url) values ('O Senhor dos Anéis – As Duas Torres', 2002, 'Peter Jackson', 12, 'Aventura', 'https://www.youtube.com/embed/l5A4R0Db4DI');
-
 insert into MOVIE_ (title, years, director, classification, genre, url) values ('O Senhor dos Anéis – O Retorno do Rei', 2003, 'Peter Jackson', 12, 'Aventura', 'https://www.youtube.com/embed/Q9wZCGjBxyU');
 
-insert into MOVIE_ (title, years, director, classification, genre, url) values ('Velozes e Furiosos 1', 2001, 'Rob Cohen',14, 'Ação', 'https://www.youtube.com/embed/4bEMXlQXiS0');
+update USER_ set USERTYPE=2 WHERE OWNER='Victor';
 
-insert into MOVIE_ (title, years, director, classification, genre, url) values ('+ Velozes e + Furiosos', 2003, 'John Singleton', 14, 'Ação', 'https://www.youtube.com/embed/ONs4_PtakGc');
+-- -- -- -- -- -- -- --
 
-insert into MOVIE_ (title, years, director, classification, genre, url) values ('Velozes e Furiosos 3 - Desafio em Tokyo', 2006, 'Justin Lin', 14, 'Ação', 'https://www.youtube.com/embed/HVQWZkd8cDk');
-
-insert into MOVIE_ (title, years, director, classification, genre, url) values ('Velozes e Furiosos 4', 2009, 'Justin Lin', 14, 'Ação', 'https://www.youtube.com/embed/yAr404wj--Y');
-
-insert into MOVIE_ (title, years, director, classification, genre, url) values ('Velozes e Furiosos 5 - Operação Rio', 2011, 'Justin Lin', 14, 'Ação', 'https://www.youtube.com/embed/FCN-B8SZVlo');
-
-insert into MOVIE_ (title, years, director, classification, genre, url) values ('Velozes e Furiosos 6', 2013, 'Justin Lin', 14, 'Ação', 'https://www.youtube.com/embed/KkzzyAUJqkY');
-
-insert into MOVIE_ (title, years, director, classification, genre, url) values ('Velozes e Furiosos 7', 2015, 'James Wan', 14, 'Ação', 'https://www.youtube.com/embed/hujU0dw6Erk');
-
-update USER_ SET USERTYPE=2 WHERE OWNER='Victor';
-
-Drop table User_;
-Drop table Access_;
-Drop table Account_;
-Drop table Payment_;
-Drop table Movie_;
+drop table User_;
+drop table Access_;
+drop table Account_;
+drop table Payment_;
+drop table Movie_;
 
 -- Alter table User_Projeto add column user_type int;
 update user_projeto set user_type=1;
@@ -148,4 +113,7 @@ update user_projeto set user_type=2 WHERE USERNAME='admin'; --
 update user_projeto set bday = '1900-03-23';
 update user_projeto set bday = '1995-10-23' WHERE USERNAME='victor'; --
 
-select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account where userName=?;
+
+select * from Access_ 
+inner join User_ on Access_.id_Access = User_.id_User 
+join Account_ on Access_.id_Access = Account_.id_Account;

@@ -20,6 +20,15 @@
         <link rel="stylesheet" href="css/skel.css" />
         <link rel="stylesheet" href="css/style.css" />
         </noscript>
+        <style>
+            select {
+                color: #000;
+                font-family: 'Raleway', sans-serif;
+                font-size: 12pt;
+                font-weight: 300;
+                line-height: 26px;
+            }
+        </style>
     </head>
     <body>
         <!-- Site -->
@@ -38,35 +47,35 @@
             </div>
         </div>
 
-            <!-- Banner -->
-            <div id="banner" class="container">
-                <section>
-                    <p> Selecione o filme que dejesa excluir: </p>
+        <!-- Banner -->
+        <div id="banner" class="container">
+            <section>
+                <p> Selecione o filme que deseja excluir: </p>
 
-                    <form action="FrontController" method="POST">
-                        <select name="idMovie">
-                            <option value="-1"> nome Filme</option>
-                            <c:forEach var="movie" items="${movies}">
-                                <option value="${movie.getId_Movie()}"> ${movie.getTitle()} </option>
-                            </c:forEach>
-                        </select>
-                        <input type="hidden" name="command" value="movie.delete" />
-                        <p> <input type="submit" value="Delete Movie"/></p>
-                    </form>
-                </section>
-            </div>	
-        </div>
+                <form action="FrontController" method="POST">
+                    <select name="idMovie">
+                        <option value="-1"> nome Filme</option>
+                        <c:forEach var="movie" items="${movies}">
+                            <option value="${movie.getId_Movie()}"> ${movie.getTitle()} </option>
+                        </c:forEach>
+                    </select>
+                    <input type="hidden" name="command" value="movie.delete" />
+                    <p> <input type="submit" value="Delete Movie"/></p>
+                </form>
+            </section>
+        </div>	
+    </div>
 
-        <!-- Rodapé -->
-        <div id="footer">
-            <div class="container">
-                <p>Facebook: <br>Filippi, Letícia, Victor</p>
-                <ul class="icons">
-                    <li><a href="https://www.facebook.com/FilippiLuigi" class="fa fa-facebook"></a></li>
-                    <li><a href="https://www.facebook.com/letiglow" class="fa fa-facebook"></a></li>
-                    <li><a href="https://www.facebook.com/victor.messina.7" class="fa fa-facebook"></a></li>
-                </ul>
-            </div>
+    <!-- Rodapé -->
+    <div id="footer">
+        <div class="container">
+            <p>Facebook: <br>Filippi, Letícia, Victor</p>
+            <ul class="icons">
+                <li><a href="https://www.facebook.com/FilippiLuigi" class="fa fa-facebook"></a></li>
+                <li><a href="https://www.facebook.com/letiglow" class="fa fa-facebook"></a></li>
+                <li><a href="https://www.facebook.com/victor.messina.7" class="fa fa-facebook"></a></li>
+            </ul>
         </div>
-    </body>
+    </div>
+</body>
 </html>
