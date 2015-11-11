@@ -53,7 +53,6 @@ public class AccessDAO implements GenericDAO<Access> {
     @Override
     public List<Access> read() {
         List<Access> accesslist = new ArrayList<>();
-        Access access = new Access();
         String sql = "select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account join Payment_ on Access_.id_Access = id_Payment";
 
         try {
@@ -62,6 +61,8 @@ public class AccessDAO implements GenericDAO<Access> {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
+                Access access = new Access();
+                
                 access.setId_Access(rs.getInt("id_Access"));
                 access.setUserName(rs.getString("username"));
                 access.setPassword(rs.getString("password"));
@@ -156,6 +157,59 @@ public class AccessDAO implements GenericDAO<Access> {
         }
         return access;
     }
+    
+    public Access readByID(int id) {
+        Access access = new Access();
+
+        String sql = "select*from Access_ inner join User_ on Access_.id_Access = User_.id_User join Account_ on Access_.id_Access = Account_.id_Account join Payment_ on Access_.id_Access = id_Payment where id_Access=?";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                access.setId_Access(rs.getInt("id_Access"));
+                access.setUserName(rs.getString("username"));
+                access.setPassword(rs.getString("password"));
+                
+                User user = new User();
+                
+                user.setId_User(rs.getInt("id_user")); // parametro da tabela do DB
+                user.setOwner(rs.getString("owner")); // parametro da tabela do DB
+                user.setEmail(rs.getString("email"));
+                user.setCpf(rs.getString("cpf"));
+                user.setBday(rs.getDate("bday"));
+                user.setUserType(rs.getInt("userType"));
+                
+                Account account = new Account();
+                
+                account.setId_Account(rs.getInt("id_Account"));
+                account.setAmount(rs.getInt("amount"));
+                account.setTypes(rs.getString("types"));
+                
+                Payment payment = new Payment();
+                
+                payment.setId_payment(rs.getInt("id_Payment"));
+                payment.setNumberCard(rs.getString("numberCard"));
+                payment.setTotal(rs.getDouble("total"));
+                payment.setPaymentDate(rs.getDate("paymentDate"));
+                payment.setStatus(rs.getString("status"));
+                
+                access.setUser(user);
+                access.setAccount(account);
+                access.setPayment(payment);
+            }
+
+            ps.close();
+            rs.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return access;
+    }
 
     @Override
     public boolean update(Access access) {
@@ -201,9 +255,9 @@ public class AccessDAO implements GenericDAO<Access> {
             int resposta = ps.executeUpdate();
 
             if (resposta == 0) {
-                System.out.println("Não foi possivel excluir o usuario indicado");
+                System.out.println("Não foi possivel excluir o login indicado");
             } else {
-                System.out.println("Usuario excluido com sucesso");
+                System.out.println("Login excluido com sucesso");
                 resp = true;
             }
 

@@ -20,10 +20,10 @@ public class PaymentManager {
         boolean inserted = paymentDAO.insert(payment);
 
         if (inserted) {
-            System.out.println("Account " + payment.getId_payment()+ " inserted ");
+            System.out.println("Payment inserted ");
             return 1;
         }
-        return -5;
+        return -10;
     }
      
      public static boolean validaNumberCard(String numberCard) {

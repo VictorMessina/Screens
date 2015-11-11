@@ -37,7 +37,7 @@
                     <p> Selecione o tipo de conta que deseja: </p>
                     <form action="FrontController" method="POST">
                         <fieldset>
-                            <p><input type="radio" name="types" value="Diamond"/> Diamond - R$ 40,00 </p>
+                            <p><input type="radio" name="types" value="Diamond" checked="checked"/> Diamond - R$ 40,00 </p>
                             <p><input type="radio" name="types" value="Gold"/> Gold - R$ 30,00 </p>
                             <p><input type="radio" name="types" value="Silver"/> Silver - R$ 20,00 </p>
                             <!-- Colocar aqui os outros campos do seu cadastro 

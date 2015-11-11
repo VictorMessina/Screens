@@ -6,6 +6,7 @@ import com.br.projetoLP2.business.AccessManager;
 import com.br.projetoLP2.business.MovieManager;
 import com.br.projetoLP2.business.PaymentManager;
 import com.br.projetoLP2.model.Access;
+import com.br.projetoLP2.model.DAO.AccessDAO;
 import com.br.projetoLP2.model.DAO.MovieDAO;
 import com.br.projetoLP2.model.Movie;
 import com.br.projetoLP2.model.Payment;
@@ -254,6 +255,9 @@ public class FrontController extends HttpServlet {
                 MovieDAO movieDAO = new MovieDAO();
                 List<Movie> listaFilme;
 
+                AccessDAO accessDAO = new AccessDAO();
+                List<Access> listaUsuarios;
+
                 if (command.endsWith("insertMovie")) {
                     rd = request.getRequestDispatcher("/insertMovie.jsp");
                     rd.forward(request, response);
@@ -279,8 +283,27 @@ public class FrontController extends HttpServlet {
                     rd = request.getRequestDispatcher("/deleteMovie.jsp");
                     rd.forward(request, response);
                 }
-                
-                if(command.endsWith("functions")){
+
+                if (command.endsWith("insertUser")) {
+                    rd = request.getRequestDispatcher("/insertUser.jsp");
+                    rd.forward(request, response);
+                }
+
+                if (command.endsWith("readUser")) {
+                    listaUsuarios = accessDAO.read();
+                    request.getSession().setAttribute("users", listaUsuarios);
+                    rd = request.getRequestDispatcher("/readUser.jsp");
+                    rd.forward(request, response);
+                }
+
+                if (command.endsWith("deleteUser")) {
+                    listaUsuarios = accessDAO.read();
+                    request.getSession().setAttribute("users", listaUsuarios);
+                    rd = request.getRequestDispatcher("/deleteUser.jsp");
+                    rd.forward(request, response);
+                }
+
+                if (command.endsWith("functions")) {
                     rd = request.getRequestDispatcher("/admFunctions.jsp");
                     rd.forward(request, response);
                 }
@@ -419,8 +442,128 @@ public class FrontController extends HttpServlet {
                     }
                 }
             }//FIM DO IF MOVIE
+
+            if (command.startsWith("user")) {
+                int code = 0;
+
+                if (command.endsWith("insert")) {
+                    if (code == 1) {
+                        rd = request.getRequestDispatcher("/admFunctions.jsp");
+                        rd.forward(request, response);
+                    } else {
+                        rd = request.getRequestDispatcher("/insertUser.jsp");
+                        rd.forward(request, response);
+                    }
+                } else if (command.endsWith("delete")) {
+                    int id = Integer.parseInt(request.getParameter("idUser"));
+
+                    code = UserManager.deleteUser(id);
+
+                    if (code == 1) {
+                        rd = request.getRequestDispatcher("/admFunctions.jsp");
+                        rd.forward(request, response);
+                    } else {
+                        rd = request.getRequestDispatcher("/deleteUser.jsp");
+                        rd.forward(request, response);
+                    }
+                }
+
+                /*if (command.endsWith("updateTitle")) {
+
+                 int idMovie = Integer.parseInt(request.getParameter("idMovie"));
+
+                 String title = request.getParameter("title");
+
+                 code = MovieManager.updateTitle(idMovie, title);
+
+                 if (code == 1) {
+                 rd = request.getRequestDispatcher("/admFunctions.jsp");
+                 rd.forward(request, response);
+                 } else {
+                 rd = request.getRequestDispatcher("/updateMovie.jsp");
+                 rd.forward(request, response);
+                 }
+
+                 } else if (command.endsWith("updateYear")) {
+
+                 int idMovie = Integer.parseInt(request.getParameter("idMovie"));
+
+                 int year = Integer.parseInt(request.getParameter("years"));
+
+                 code = MovieManager.updateYear(idMovie, year);
+
+                 if (code == 1) {
+                 rd = request.getRequestDispatcher("/admFunctions.jsp");
+                 rd.forward(request, response);
+                 } else {
+                 rd = request.getRequestDispatcher("/updateMovie.jsp");
+                 rd.forward(request, response);
+                 }
+                 } else if (command.endsWith("updateDirector")) {
+
+                 int idMovie = Integer.parseInt(request.getParameter("idMovie"));
+
+                 String director = request.getParameter("director");
+
+                 code = MovieManager.updateDirector(idMovie, director);
+
+                 if (code == 1) {
+                 rd = request.getRequestDispatcher("/admFunctions.jsp");
+                 rd.forward(request, response);
+                 } else {
+                 rd = request.getRequestDispatcher("/updateMovie.jsp");
+                 rd.forward(request, response);
+                 }
+                 } else if (command.endsWith("updateClassification")) {
+
+                 int idMovie = Integer.parseInt(request.getParameter("idMovie"));
+
+                 int classification = Integer.parseInt(request.getParameter("classification"));
+
+                 code = MovieManager.updateClassification(idMovie, classification);
+
+                 if (code == 1) {
+                 rd = request.getRequestDispatcher("/admFunctions.jsp");
+                 rd.forward(request, response);
+                 } else {
+                 rd = request.getRequestDispatcher("/updateMovie.jsp");
+                 rd.forward(request, response);
+                 }
+                 } else if (command.endsWith("updateGenre")) {
+
+                 int idMovie = Integer.parseInt(request.getParameter("idMovie"));
+
+                 String genre = request.getParameter("genre");
+
+                 code = MovieManager.updateGenre(idMovie, genre);
+
+                 if (code == 1) {
+                 rd = request.getRequestDispatcher("/admFunctions.jsp");
+                 rd.forward(request, response);
+                 } else {
+                 rd = request.getRequestDispatcher("/updateMovie.jsp");
+                 rd.forward(request, response);
+                 }
+                 } else if (command.endsWith("updateUrl")) {
+
+                 int idMovie = Integer.parseInt(request.getParameter("idMovie"));
+
+                 String url = request.getParameter("url");
+
+                 code = MovieManager.updateUrl(idMovie, url);
+
+                 if (code == 1) {
+                 rd = request.getRequestDispatcher("/admFunctions.jsp");
+                 rd.forward(request, response);
+                 } else {
+                 rd = request.getRequestDispatcher("/updateMovie.jsp");
+                 rd.forward(request, response);
+                 }
+                 }*/
+            }//FIM DO IF USER
         }
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

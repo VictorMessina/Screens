@@ -9,7 +9,7 @@
 <html>
 <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Register User - Step 3</title>
+        <title>Register User - Step 4</title>
         <script src="js/jquery.min.js"></script>
         <script src="js/jquery.dropotron.min.js"></script>
         <script src="js/skel.min.js"></script>

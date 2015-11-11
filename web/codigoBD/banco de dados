@@ -34,7 +34,8 @@ create table Payment_ (
     numberCard varchar (16),
     total int not null,
     paymentDate Date,
-    status varchar (20)
+    status varchar (20),
+    foreign key (id_Payment) references User_ (id_User)
 );
 
 -- TABLE MOVIE
