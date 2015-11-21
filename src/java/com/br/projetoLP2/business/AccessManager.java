@@ -5,7 +5,7 @@ import com.br.projetoLP2.model.DAO.AccessDAO;
 
 /**
  *
- * @author 31449530
+ * @author Victor Messina TIA: 31449530, Leticia Garcia TIA: 31402836 , Filippi Di Pipi TIA: 31438938
  */
 public class AccessManager {
 
@@ -58,7 +58,43 @@ public class AccessManager {
         }
         return auth;
     }
-
+    
+    public static int updateUserName (int idAccess, String userName){
+        
+        AccessDAO accessDAO = new AccessDAO();
+        Access accesss = accessDAO.readByID(idAccess);
+        
+        if(accesss!=null){
+            accesss.setUserName(userName);
+            
+            boolean updateUserName = accessDAO.update(accesss);
+            
+            if(updateUserName){
+                System.out.println("userName updated");
+                return 1;
+            }
+        }
+        return -5;
+    }
+    
+    public static int updatePassword (int idAccess, String password){
+        
+        AccessDAO accessDAO = new AccessDAO();
+        Access accesss = accessDAO.readByID(idAccess);
+        
+        if(accesss!=null){
+            accesss.setPassword(password);
+            
+            boolean updatePassword = accessDAO.update(accesss);
+            
+            if(updatePassword){
+                System.out.println("Password updated");
+                return 1;
+            }
+        }
+        return -5;
+    }
+        
     public static Access getAccess() {
         return access;
     }
@@ -66,6 +102,4 @@ public class AccessManager {
     public static void setAccess(Access access) {
         AccessManager.access = access;
     }
-    
-    
 }

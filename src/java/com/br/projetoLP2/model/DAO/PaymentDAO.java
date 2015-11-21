@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author 31449530
+ * @author Victor Messina TIA: 31449530, Leticia Garcia TIA: 31402836 , Filippi Di Pipi TIA: 31438938
  */
 public class PaymentDAO implements GenericDAO<Payment> {
 
@@ -79,6 +79,34 @@ public class PaymentDAO implements GenericDAO<Payment> {
             ex.printStackTrace();
         }
         return payments;
+    }
+    public Payment readByID(int idPayment) {
+        Payment payment = new Payment();
+
+        String sql = "select * from Payment_ where id_Payment=?";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            ps.setInt(1, idPayment);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                
+                payment.setId_payment(rs.getInt("id_Payment")); // parametro da tabela do DB
+                payment.setNumberCard(rs.getString("numberCard")); // parametro da tabela do DB
+                payment.setTotal(rs.getDouble("total"));
+                payment.setPaymentDate(rs.getDate("paymentDate"));
+                payment.setStatus(rs.getString("status"));
+            }
+            ps.close();
+            rs.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return payment;
     }
 
     @Override

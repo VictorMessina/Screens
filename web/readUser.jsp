@@ -1,7 +1,7 @@
 <%-- 
     Document   : readUser
     Created on : 11/11/2015, 10:53:01
-    Author     : 31449530
+    Author     : Victor Messina TIA: 31449530, Leticia Garcia TIA: 31402836 , Filippi Di Pipi TIA: 31438938
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -41,12 +41,29 @@
         <!-- Banner -->
         <div id="banner" class="container">
             <section>
-                <c:if test="${users.size()==0}">
-                    <c:out value="A lista de usuarios esta vazia" > </c:out>
+                <c:if test="${users.size()==1}">
+                    <c:out value="A lista de usuarios comuns esta vazia" > </c:out>
                 </c:if>
+                <br>
+                <c:out value="lista de usuarios comuns do site" > </c:out>
+                <br>
                 <c:forEach var="user" items="${users}">
                     <c:if test="${user.getUser().getUserType()!= 2}"> 
-                        ${user.getUser().getOwner()} <hr>
+                        ${user.getUser().getOwner()} <br>
+                    </c:if>
+                </c:forEach>
+            </section>
+            <hr>
+            <section>
+                <c:if test="${users.size()==0}">
+                    <c:out value=" A lista de usuarios com funçoes de administrador esta vazia" > </c:out>
+                </c:if>
+                <br>
+                <c:out value="lista de usuarios com funçoes de administrador" > </c:out>
+                <br>
+                <c:forEach var="user" items="${users}">
+                    <c:if test="${user.getUser().getUserType()== 2}"> 
+                        ${user.getUser().getOwner()} <br>
                     </c:if>
                 </c:forEach>
             </section>

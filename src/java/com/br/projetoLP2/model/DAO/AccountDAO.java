@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author 31449530
+ * @author Victor Messina TIA: 31449530, Leticia Garcia TIA: 31402836 , Filippi Di Pipi TIA: 31438938
  */
 public class AccountDAO implements GenericDAO<Account> {
 
@@ -72,6 +72,33 @@ public class AccountDAO implements GenericDAO<Account> {
             ex.printStackTrace();
         }
         return accounts;
+    }
+    public Account readByID(int idAccount) {
+       Account account = new Account();
+        String sql = "select * from Account_ where id_Account=?";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, idAccount);
+
+            //3- executa a query 
+            ResultSet rs = ps.executeQuery(); // retorna um objeto do tipo resultSet (grande objeto, 
+            // mapa de registros do banco)
+
+            //4 - mostrar os resultados do resutSet
+            while (rs.next()) {
+                account.setId_Account(rs.getInt("id_Account"));
+                account.setAmount(rs.getInt("amount"));
+                account.setTypes(rs.getString("types"));
+            }
+            //5-fecha a conexao com o DB e com o PerparedStatement
+            ps.close();
+            rs.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return account;
     }
 
     @Override

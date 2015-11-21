@@ -10,7 +10,7 @@ import com.br.projetoLP2.model.Movie;
 
 /**
  *
- * @author 31449530
+ * @author Victor Messina TIA: 31449530, Leticia Garcia TIA: 31402836 , Filippi Di Pipi TIA: 31438938
  */
 public class MovieManager {
 

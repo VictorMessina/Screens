@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author 31449530
+ * @author Victor Messina TIA: 31449530, Leticia Garcia TIA: 31402836 , Filippi Di Pipi TIA: 31438938
  */
 @WebServlet(name = "FrontController", urlPatterns = {"/FrontController"})
 public class FrontController extends HttpServlet {
@@ -83,25 +83,24 @@ public class FrontController extends HttpServlet {
                         code = UserManager.insert(user);
                         //request.getSession().setAttribute("owner",owner);
                     }
-                }
-
-                if (code == 1) {
-                    rd = request.getRequestDispatcher("/register2.jsp");
-                    rd.forward(request, response);
-                } else {
-                    rd = request.getRequestDispatcher("/erroLogin.jsp");
-                    String mensagem = "";
-                    switch (code) {
-                        case -3:
-                            mensagem = "Owner already exist";
-                            break;
-                        case -5:
-                            mensagem = "ERROR on data base. try again";
-                            break;
+                    if (code == 1) {
+                        rd = request.getRequestDispatcher("/register2.jsp");
+                        rd.forward(request, response);
+                    } else {
+                        rd = request.getRequestDispatcher("/erroLogin.jsp");
+                        String mensagem = "";
+                        switch (code) {
+                            case -3:
+                                mensagem = "Owner already exist";
+                                break;
+                            case -5:
+                                mensagem = "ERROR on data base. try again";
+                                break;
+                        }
+                        request.getSession().setAttribute("code", mensagem);
+                        rd.forward(request, response);
+                        //response.sendRedirect("erroLogin.jsp"); // pode substituir a linha de cima mas nao mantem todas as informações na session
                     }
-                    request.getSession().setAttribute("code", mensagem);
-                    rd.forward(request, response);
-                    //response.sendRedirect("erroLogin.jsp"); // pode substituir a linha de cima mas nao mantem todas as informações na session
                 }
             }// FIM DO IF DO USER...
 
@@ -117,6 +116,33 @@ public class FrontController extends HttpServlet {
                     // substitui as duas linhas comentada abaixo
                     //request.getSession().setAttribute("password",password); // substitui as duas linhas comentada abaixo
 
+                    if (code == 1) {
+                        rd = request.getRequestDispatcher("/homepage.jsp");
+                        rd.forward(request, response);
+                    } else {
+                        rd = request.getRequestDispatcher("/erroLogin.jsp");
+                        String mensagem = "";
+                        switch (code) {
+                            case -1:
+                                mensagem = "User not found";
+                                break;
+                            case -2:
+                                mensagem = "Wrong Password";
+                                break;
+                            case -3:
+                                mensagem = "User already exist";
+                                break;
+                            case -4:
+                                mensagem = "Password doesn't macth";
+                                break;
+                            case -5:
+                                mensagem = "ERROR on data base. try again";
+                                break;
+                        }
+                        request.getSession().setAttribute("code", mensagem);
+                        rd.forward(request, response);
+                        //response.sendRedirect("erroLogin.jsp"); // pode substituir a linha de cima mas nao mantem todas as informações na session
+                    }
                 } else if (command.endsWith("insert")) { // insert login - insere um novo login de usuario no banco de dados
                     String userName = request.getParameter("userName");
                     String pwd = request.getParameter("password");
@@ -148,43 +174,14 @@ public class FrontController extends HttpServlet {
                     request.getSession().setAttribute("access", AccessManager.getAccess());
                     rd = request.getRequestDispatcher("/homepage.jsp"); // redireciona para pagina home
                     rd.forward(request, response);
-                }
-
-                if (code == 1) {
-                    String userName = "";
-
-                    if (request.getParameter("lembrar") != null) {
-                        userName = AccessManager.getAccess().getUserName();
+                } else if (command.endsWith("pagar")) {
+                    int idPayment = Integer.parseInt(request.getParameter("idPayment"));
+                    int codeP = PaymentManager.updateStatusUser(idPayment);
+                    if (codeP == 1) {
+                        response.sendRedirect("homepage.jsp");
+                    } else {
+                        response.sendRedirect("erroLogin");
                     }
-                    Cookie cookie = new Cookie("user", userName); // nome do cookie
-                    cookie.setMaxAge(60 * 60 * 24 * 7); //tempo de permanencia do cookie no navegador
-                    response.addCookie(cookie); // adiciona cookie
-
-                    rd = request.getRequestDispatcher("/homepage.jsp");
-                    rd.forward(request, response);
-                } else {
-                    rd = request.getRequestDispatcher("/erroLogin.jsp");
-                    String mensagem = "";
-                    switch (code) {
-                        case -1:
-                            mensagem = "User not found";
-                            break;
-                        case -2:
-                            mensagem = "Wrong Password";
-                            break;
-                        case -3:
-                            mensagem = "User already exist";
-                            break;
-                        case -4:
-                            mensagem = "Password doesn't macth";
-                            break;
-                        case -5:
-                            mensagem = "ERROR on data base. try again";
-                            break;
-                    }
-                    request.getSession().setAttribute("code", mensagem);
-                    rd.forward(request, response);
-                    //response.sendRedirect("erroLogin.jsp"); // pode substituir a linha de cima mas nao mantem todas as informações na session
                 }
             }//FIM DO IF ACCESS...
 
@@ -233,22 +230,15 @@ public class FrontController extends HttpServlet {
 
                         code = PaymentManager.insert(payment);
                     }
+                    if (code == 1) {
+                        rd = request.getRequestDispatcher("/homepage.jsp");
+                        rd.forward(request, response);
+                    } else {
+                        rd = request.getRequestDispatcher("/register4.jsp");
+                        rd.forward(request, response);
+                    }
                 }
 
-                if (code == 1) {
-                    rd = request.getRequestDispatcher("/homepage.jsp");
-                    rd.forward(request, response);
-                } else {
-                    rd = request.getRequestDispatcher("/erroLogin.jsp");
-                    String mensagem = "";
-                    switch (code) {
-                        case -5:
-                            mensagem = "ERROR on data base. try again";
-                            break;
-                    }
-                    request.getSession().setAttribute("code", mensagem);
-                    rd.forward(request, response);
-                }
             } //FIM DO IF PAYMENT
 
             if (command.startsWith("adm")) {
@@ -284,11 +274,6 @@ public class FrontController extends HttpServlet {
                     rd.forward(request, response);
                 }
 
-                if (command.endsWith("insertUser")) {
-                    rd = request.getRequestDispatcher("/insertUser.jsp");
-                    rd.forward(request, response);
-                }
-
                 if (command.endsWith("readUser")) {
                     listaUsuarios = accessDAO.read();
                     request.getSession().setAttribute("users", listaUsuarios);
@@ -296,10 +281,21 @@ public class FrontController extends HttpServlet {
                     rd.forward(request, response);
                 }
 
+                if (command.endsWith("insertUser")) {
+                    rd = request.getRequestDispatcher("/insertUser.jsp");
+                    rd.forward(request, response);
+                }
+
                 if (command.endsWith("deleteUser")) {
                     listaUsuarios = accessDAO.read();
                     request.getSession().setAttribute("users", listaUsuarios);
                     rd = request.getRequestDispatcher("/deleteUser.jsp");
+                    rd.forward(request, response);
+                }
+                if (command.endsWith("updateUser")) {
+                    listaUsuarios = accessDAO.read();
+                    request.getSession().setAttribute("users", listaUsuarios);
+                    rd = request.getRequestDispatcher("/updateUser.jsp");
                     rd.forward(request, response);
                 }
 
@@ -443,128 +439,255 @@ public class FrontController extends HttpServlet {
                 }
             }//FIM DO IF MOVIE
 
-            if (command.startsWith("user")) {
+            if (command.startsWith("userAdm")) {
                 int code = 0;
+                int userNum = 0;
+                int accessNum = 0;
+                int accountNum = 0;
+                int paymentNum = 0;
 
-                if (command.endsWith("insert")) {
-                    if (code == 1) {
-                        rd = request.getRequestDispatcher("/admFunctions.jsp");
-                        rd.forward(request, response);
-                    } else {
+                if (command.endsWith("insertUser")) {
+
+                    if (!UserManager.validaCPF(request.getParameter("cpf"))) {
                         rd = request.getRequestDispatcher("/insertUser.jsp");
                         rd.forward(request, response);
+                    } else {
+
+                        String owner = request.getParameter("owner");
+                        String email = request.getParameter("email");
+                        String cpf = request.getParameter("cpf");
+                        String bday = request.getParameter("bday");
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                        Date bday2 = null;
+                        try {
+                            bday2 = formatter.parse(bday);
+                        } catch (ParseException ex) {
+                            Logger.getLogger(FrontController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                        User user = new User();
+
+                        user.setOwner(owner);
+                        user.setEmail(email);
+                        user.setCpf(cpf);
+                        user.setBday(bday2);
+                        user.setUserType(1);
+
+                        userNum = UserManager.insert(user);
+
+                        if (userNum != 1) {
+                            rd = request.getRequestDispatcher("/insertUser");
+                            rd.forward(request, response);
+                        } else {
+
+                            String userName = request.getParameter("userName");
+                            String pwd = request.getParameter("password");
+                            String pwd2 = request.getParameter("password2");
+
+                            Access access = new Access(userName, pwd);
+
+                            access.setUserName(userName);
+                            access.setPassword(pwd);
+
+                            accessNum = AccessManager.insert(access, pwd2);
+
+                            if (accessNum != 1) {
+                                rd = request.getRequestDispatcher("/insertUser.jsp");
+                                rd.forward(request, response);
+                            } else {
+                                String types = request.getParameter("types");
+                                accountNum = AccountManager.insert(types);
+                            }
+                            if (accountNum == -1) {
+                                rd = request.getRequestDispatcher("/insertUser.jsp");
+                                rd.forward(request, response);
+                            } else {
+
+                                request.getSession().setAttribute("valorConta", accountNum);
+
+                                if (!PaymentManager.validaNumberCard(request.getParameter("numberCard"))) {
+                                    rd = request.getRequestDispatcher("/insertUser.jsp");
+                                    rd.forward(request, response);
+                                } else {
+
+                                    String numberCard = request.getParameter("numberCard");
+
+                                    int total = (int) request.getSession().getAttribute("valorConta");
+
+                                    Date paymentDate = new Date();
+
+                                    String status = "Em aberto";
+
+                                    Payment payment = new Payment();
+
+                                    payment.setNumberCard(numberCard);
+                                    payment.setTotal(total);
+                                    payment.setPaymentDate(paymentDate);
+                                    payment.setStatus(status);
+
+                                    paymentNum = PaymentManager.insert(payment);
+                                }
+
+                                if (paymentNum != -1) {
+                                    code = 1;
+                                }
+                            }
+                        }
+
+                        if (code == 1) {
+                            rd = request.getRequestDispatcher("/admFunctions.jsp");
+                            rd.forward(request, response);
+                        } else {
+                            rd = request.getRequestDispatcher("/insertUser.jsp");
+                            rd.forward(request, response);
+                        }
                     }
-                } else if (command.endsWith("delete")) {
+                }
+
+                if (command.endsWith("delete")) {
                     int id = Integer.parseInt(request.getParameter("idUser"));
 
                     code = UserManager.deleteUser(id);
 
                     if (code == 1) {
-                        rd = request.getRequestDispatcher("/admFunctions.jsp");
-                        rd.forward(request, response);
+                        response.sendRedirect("admFunctions.jsp");
                     } else {
-                        rd = request.getRequestDispatcher("/deleteUser.jsp");
-                        rd.forward(request, response);
+                        response.sendRedirect("deleteUser.jsp");
                     }
                 }
 
-                /*if (command.endsWith("updateTitle")) {
+                if (command.endsWith("updateOwner")) {
+                    int id = Integer.parseInt(request.getParameter("idUser"));
 
-                 int idMovie = Integer.parseInt(request.getParameter("idMovie"));
+                    String owner = request.getParameter("owner");
 
-                 String title = request.getParameter("title");
+                    code = UserManager.updateOwner(id, owner);
+                    if (code == 1) {
+                        response.sendRedirect("admFunctions.jsp");
+                    } else {
+                        response.sendRedirect("updateUser.jsp");
+                    }
+                }
+                if (command.endsWith("updateEmail")) {
+                    int id = Integer.parseInt(request.getParameter("idUser"));
 
-                 code = MovieManager.updateTitle(idMovie, title);
+                    String email = request.getParameter("email");
 
-                 if (code == 1) {
-                 rd = request.getRequestDispatcher("/admFunctions.jsp");
-                 rd.forward(request, response);
-                 } else {
-                 rd = request.getRequestDispatcher("/updateMovie.jsp");
-                 rd.forward(request, response);
-                 }
+                    code = UserManager.updateEmail(id, email);
+                    if (code == 1) {
+                        response.sendRedirect("admFunctions.jsp");
+                    } else {
+                        response.sendRedirect("updateUser.jsp");
+                    }
+                }
+                if (command.endsWith("updateCPF")) {
+                    int id = Integer.parseInt(request.getParameter("idUser"));
 
-                 } else if (command.endsWith("updateYear")) {
+                    String cpf = request.getParameter("cpf");
 
-                 int idMovie = Integer.parseInt(request.getParameter("idMovie"));
+                    code = UserManager.updateCPF(id, cpf);
+                    if (code == 1) {
+                        response.sendRedirect("admFunctions.jsp");
+                    } else {
+                        response.sendRedirect("updateUser.jsp");
+                    }
+                }
+                if (command.endsWith("updateDate")) {
+                    int id = Integer.parseInt(request.getParameter("idUser"));
 
-                 int year = Integer.parseInt(request.getParameter("years"));
+                    String bday = request.getParameter("bday");
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    Date bday2 = null;
+                    try {
+                        bday2 = formatter.parse(bday);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(FrontController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 
-                 code = MovieManager.updateYear(idMovie, year);
+                    code = UserManager.updateDate(id, bday2);
+                    if (code == 1) {
+                        response.sendRedirect("admFunctions.jsp");
+                    } else {
+                        response.sendRedirect("updateUser.jsp");
+                    }
+                }
 
-                 if (code == 1) {
-                 rd = request.getRequestDispatcher("/admFunctions.jsp");
-                 rd.forward(request, response);
-                 } else {
-                 rd = request.getRequestDispatcher("/updateMovie.jsp");
-                 rd.forward(request, response);
-                 }
-                 } else if (command.endsWith("updateDirector")) {
+                if (command.endsWith("updateUserType")) {
+                    int id = Integer.parseInt(request.getParameter("idUser"));
 
-                 int idMovie = Integer.parseInt(request.getParameter("idMovie"));
+                    int userType = Integer.parseInt(request.getParameter("userType"));
 
-                 String director = request.getParameter("director");
+                    code = UserManager.updateUserType(id, userType);
+                    if (code == 1) {
+                        response.sendRedirect("admFunctions.jsp");
+                    } else {
+                        response.sendRedirect("updateUser.jsp");
+                    }
+                }
+                if (command.endsWith("updateUserName")) {
+                    int id = Integer.parseInt(request.getParameter("idUser"));
 
-                 code = MovieManager.updateDirector(idMovie, director);
+                    String userName = request.getParameter("userName");
 
-                 if (code == 1) {
-                 rd = request.getRequestDispatcher("/admFunctions.jsp");
-                 rd.forward(request, response);
-                 } else {
-                 rd = request.getRequestDispatcher("/updateMovie.jsp");
-                 rd.forward(request, response);
-                 }
-                 } else if (command.endsWith("updateClassification")) {
+                    code = AccessManager.updateUserName(id, userName);
+                    if (code == 1) {
+                        response.sendRedirect("admFunctions.jsp");
+                    } else {
+                        response.sendRedirect("updateUser.jsp");
+                    }
+                }
+                if (command.endsWith("updatePassword")) {
+                    int id = Integer.parseInt(request.getParameter("idUser"));
 
-                 int idMovie = Integer.parseInt(request.getParameter("idMovie"));
+                    String password = request.getParameter("password");
 
-                 int classification = Integer.parseInt(request.getParameter("classification"));
+                    code = AccessManager.updatePassword(id, password);
+                    if (code == 1) {
+                        response.sendRedirect("admFunctions.jsp");
+                    } else {
+                        response.sendRedirect("updateUser.jsp");
+                    }
+                }
+                if (command.endsWith("updateType")) {
+                    int id = Integer.parseInt(request.getParameter("idUser"));
 
-                 code = MovieManager.updateClassification(idMovie, classification);
+                    String types = request.getParameter("types");
 
-                 if (code == 1) {
-                 rd = request.getRequestDispatcher("/admFunctions.jsp");
-                 rd.forward(request, response);
-                 } else {
-                 rd = request.getRequestDispatcher("/updateMovie.jsp");
-                 rd.forward(request, response);
-                 }
-                 } else if (command.endsWith("updateGenre")) {
+                    code = AccountManager.updateAccount(id, types);
+                    if (code == 1) {
+                        response.sendRedirect("admFunctions.jsp");
+                    } else {
+                        response.sendRedirect("updateUser.jsp");
+                    }
+                }
+                if (command.endsWith("updateNumberCard")) {
+                    int id = Integer.parseInt(request.getParameter("idUser"));
 
-                 int idMovie = Integer.parseInt(request.getParameter("idMovie"));
+                    String numberCard = request.getParameter("numberCard");
 
-                 String genre = request.getParameter("genre");
+                    code = PaymentManager.updateNumberCard(id, numberCard);
+                    if (code == 1) {
+                        response.sendRedirect("admFunctions.jsp");
+                    } else {
+                        response.sendRedirect("updateUser.jsp");
+                    }
+                }
 
-                 code = MovieManager.updateGenre(idMovie, genre);
+                if (command.endsWith("updateStatus")) {
+                    int id = Integer.parseInt(request.getParameter("idUser"));
 
-                 if (code == 1) {
-                 rd = request.getRequestDispatcher("/admFunctions.jsp");
-                 rd.forward(request, response);
-                 } else {
-                 rd = request.getRequestDispatcher("/updateMovie.jsp");
-                 rd.forward(request, response);
-                 }
-                 } else if (command.endsWith("updateUrl")) {
-
-                 int idMovie = Integer.parseInt(request.getParameter("idMovie"));
-
-                 String url = request.getParameter("url");
-
-                 code = MovieManager.updateUrl(idMovie, url);
-
-                 if (code == 1) {
-                 rd = request.getRequestDispatcher("/admFunctions.jsp");
-                 rd.forward(request, response);
-                 } else {
-                 rd = request.getRequestDispatcher("/updateMovie.jsp");
-                 rd.forward(request, response);
-                 }
-                 }*/
-            }//FIM DO IF USER
+                    code = PaymentManager.updateStatus(id);
+                    if (code == 1) {
+                        response.sendRedirect("admFunctions.jsp");
+                    } else {
+                        response.sendRedirect("updateUser.jsp");
+                    }
+                }
+            }//FIM DO IF USER ADM
         }
     }
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  *
- * @author 31402836
+ * @author Victor Messina TIA: 31449530, Leticia Garcia TIA: 31402836 , Filippi Di Pipi TIA: 31438938
  */
 public class Payment implements Serializable {
 

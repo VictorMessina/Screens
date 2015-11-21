@@ -8,10 +8,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
- * @author 31449530
+ * @author Victor Messina TIA: 31449530, Leticia Garcia TIA: 31402836 , Filippi Di Pipi TIA: 31438938
  */
 public class UserDAO implements GenericDAO<User> {
 
@@ -22,7 +24,7 @@ public class UserDAO implements GenericDAO<User> {
     }
 
     @Override
-    public boolean insert(User user) {
+    public boolean insert(User user){
         boolean resp = false;
 
         String sql = "insert into User_ (owner,email,cpf,bday,userType) values (?,?,?,?,?)";
@@ -47,7 +49,7 @@ public class UserDAO implements GenericDAO<User> {
             }
             ps.close();
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return resp;
     }
@@ -93,6 +95,38 @@ public class UserDAO implements GenericDAO<User> {
             //2a - criar o preparedStatement
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, owner);
+
+            //3- executa a query 
+            ResultSet rs = ps.executeQuery(); // retorna um objeto do tipo resultSet (grande objeto, 
+            // mapa de registros do banco)
+
+            //4 - mostrar os resultados do resutSet
+            while (rs.next()) {
+                user.setId_User(rs.getInt("id_User"));
+                user.setOwner(rs.getString("owner"));
+                user.setEmail(rs.getString("email"));
+                user.setCpf(rs.getString("cpf"));
+                user.setBday(rs.getDate("bday"));
+                user.setUserType(rs.getInt("userType"));
+
+            }
+            //5-fecha a conexao com o DB e com o PerparedStatement
+            ps.close();
+            rs.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return user;
+    }
+    public User readByID(int idUser) {
+        User user = new User();
+        //2 - criar String SQL
+        String sql = "Select * from User_ where id_User=?";
+        try {
+            //2a - criar o preparedStatement
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, idUser);
 
             //3- executa a query 
             ResultSet rs = ps.executeQuery(); // retorna um objeto do tipo resultSet (grande objeto, 

@@ -1,7 +1,7 @@
 <%-- 
     Document   : readMovie
     Created on : 04/11/2015, 19:33:46
-    Author     : Patricia
+    Author     : Victor Messina TIA: 31449530, Leticia Garcia TIA: 31402836 , Filippi Di Pipi TIA: 31438938
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

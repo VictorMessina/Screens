@@ -1,7 +1,7 @@
 <%-- 
     Document   : register
     Created on : 01/10/2015, 07:49:03
-    Author     : 31449530
+    Author     : Victor Messina TIA: 31449530, Leticia Garcia TIA: 31402836 , Filippi Di Pipi TIA: 31438938
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

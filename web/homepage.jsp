@@ -1,7 +1,7 @@
 <%-- 
     Document   : home
     Created on : 30/09/2015, 09:47:26
-    Author     : 31449530
+    Author     : Victor Messina TIA: 31449530, Leticia Garcia TIA: 31402836 , Filippi Di Pipi TIA: 31438938
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

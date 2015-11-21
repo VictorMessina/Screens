@@ -1,7 +1,7 @@
 <%-- 
     Document   : deleteMovie
     Created on : 04/11/2015, 16:43:36
-    Author     : 31449530
+    Author     : Victor Messina TIA: 31449530, Leticia Garcia TIA: 31402836 , Filippi Di Pipi TIA: 31438938
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -49,6 +49,9 @@
 
         <!-- Banner -->
         <div id="banner" class="container">
+            <c:if test="${movies.size()==0}">
+                <c:out value="A lista de filmes esta vazia"> </c:out>
+            </c:if>
             <section>
                 <p> Selecione o filme que deseja excluir: </p>
 

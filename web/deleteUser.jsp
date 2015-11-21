@@ -1,7 +1,7 @@
 <%-- 
     Document   : deleteUser
     Created on : 11/11/2015, 09:23:21
-    Author     : 31449530
+    Author     : Victor Messina TIA: 31449530, Leticia Garcia TIA: 31402836 , Filippi Di Pipi TIA: 31438938
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -49,9 +49,11 @@
 
         <!-- Banner -->
         <div id="banner" class="container">
+            <c:if test="${users.size()==1}">
+                <c:out value="A lista de usuarios esta vazia"> </c:out>
+            </c:if>
             <section>
                 <p> Selecione o usuário que deseja excluir: </p>
-
                 <form action="FrontController" method="POST">
                     <select name="idUser">
                         <option value="-1"> nome Usuario</option>
@@ -61,7 +63,7 @@
                             </c:if>
                         </c:forEach>
                     </select>
-                    <input type="hidden" name="command" value="user.delete" />
+                    <input type="hidden" name="command" value="userAdm.delete" />
                     <p> <input type="submit" value="Delete User"/></p>
                 </form>
             </section>

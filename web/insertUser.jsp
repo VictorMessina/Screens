@@ -1,7 +1,7 @@
 <%-- 
     Document   : insertUser
     Created on : 11/11/2015, 11:29:05
-    Author     : 31449530
+    Author     : Victor Messina TIA: 31449530, Leticia Garcia TIA: 31402836 , Filippi Di Pipi TIA: 31438938
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Register User </title>
+        <title>Register New User </title>
         <script src="js/jquery.min.js"></script>
         <script src="js/jquery.dropotron.min.js"></script>
         <script src="js/skel.min.js"></script>
@@ -59,9 +59,8 @@
                         <p>NumberCard: <input type="text" name="numberCard" placeholder="numberCard" maxlength="16" required/></p>
                         <!-- Colocar aqui os outros campos do seu cadastro 
                              usar required quando os campos do banco forem not null-->
-                        <input type="hidden" name="command" value="user.insert" />
-                        <p> <input type="submit" value="Register User"/></p>
-                    </fieldset>
+                        <input type="hidden" name="command" value="userAdm.insertUser" />
+                    <p> <input type="submit" value="Register User"/></p>
                 </form>
                 <p> OBS: No campo CPF são usados numeros e não é preciso separar os numeros com pontos e traços</p>
             </section>

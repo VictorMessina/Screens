@@ -8,10 +8,11 @@ import com.br.projetoLP2.model.DAO.PaymentDAO;
 import com.br.projetoLP2.model.DAO.UserDAO;
 import com.br.projetoLP2.model.Payment;
 import com.br.projetoLP2.model.User;
+import java.util.Date;
 
 /**
  *
- * @author 31449530
+ * @author Victor Messina TIA: 31449530, Leticia Garcia TIA: 31402836 , Filippi Di Pipi TIA: 31438938
  */
 public class UserManager {
 
@@ -50,6 +51,9 @@ public class UserManager {
     }
 
     public static int deleteUser(int idUser) {
+        if (idUser < 0) {
+            return -50;
+        }
 
         AccessDAO accessDAO = new AccessDAO();
         UserDAO userDAO = new UserDAO();
@@ -57,38 +61,118 @@ public class UserManager {
         PaymentDAO paymentDAO = new PaymentDAO();
 
         Access access = accessDAO.readByID(idUser);
-        
+
         Account account = access.getAccount();
-        
+
         Payment payment = access.getPayment();
-        
+
         User user = access.getUser();
 
-        if (accessDAO.readByUserName(access.getUserName()).getId_Access() != -1) {
-            boolean delete = accountDAO.delete(account);
-            boolean delete1 = paymentDAO.delete(payment);
-            boolean delete2 = accessDAO.delete(access);
-            boolean delete3 = userDAO.delete(user);
+        boolean delete = accountDAO.delete(account);
+        boolean delete1 = paymentDAO.delete(payment);
+        boolean delete2 = accessDAO.delete(access);
+        boolean delete3 = userDAO.delete(user);
 
-            if (!delete) {
-                System.out.println("delete falhou");
-            }else if(!delete1){
-                System.out.println("delete 1 falhou");
-            }
-            else if (!delete2){
-                System.out.println("delete 2 falhou");
-            }
-            else if (!delete3){
-                System.out.println("delete 3 falhou");
-            }
-            else{
-            
-                System.out.println("User " + access.getUser().getOwner() + " deleted");
+        if (!delete) {
+            System.out.println("delete falhou");
+            return -10;
+        } else if (!delete1) {
+            System.out.println("delete 1 falhou");
+            return -20;
+        } else if (!delete2) {
+            System.out.println("delete 2 falhou");
+            return -30;
+        } else if (!delete3) {
+            System.out.println("delete 3 falhou");
+            return -40;
+        } else {
+            System.out.println("User " + access.getUser().getOwner() + " deleted");
+            return 1;
+        }
+    }
+
+    public static int updateOwner(int idUser, String owner) {
+        UserDAO userDAO = new UserDAO();
+
+        User user = userDAO.readByID(idUser);
+
+        if (user != null) {
+            user.setOwner(owner);
+            boolean updateOwner = userDAO.update(user);
+            if (updateOwner) {
+                System.out.println("Owner updated");
                 return 1;
-                
             }
         }
-        System.out.println("ERROR: User not deleted");
-        return -10;
+        return -5;
+    }
+
+    public static int updateEmail(int idUser, String email) {
+        UserDAO userDAO = new UserDAO();
+
+        User user = userDAO.readByID(idUser);
+
+        if (user != null) {
+            user.setEmail(email);
+            boolean updateEmail = userDAO.update(user);
+            if (updateEmail) {
+                System.out.println("Email updated");
+                return 1;
+            }
+        }
+        return -5;
+    }
+
+    public static int updateCPF(int idUser, String cpf) {
+        UserDAO userDAO = new UserDAO();
+
+        User user = userDAO.readByID(idUser);
+
+        if (user != null) {
+
+            if (validaCPF(cpf)) {
+                user.setCpf(cpf);
+                boolean updateCPF = userDAO.update(user);
+                if (updateCPF) {
+                    System.out.println("CPF updated");
+                    return 1;
+                }
+            }
+        }
+        return -5;
+    }
+
+    public static int updateDate(int idUser, Date bday) {
+        UserDAO userDAO = new UserDAO();
+
+        User user = userDAO.readByID(idUser);
+
+        if (user != null) {
+            user.setBday(bday);
+            boolean updateDate = userDAO.update(user);
+
+            if (updateDate) {
+                System.out.println("Date updated");
+                return 1;
+            }
+        }
+        return -5;
+    }
+
+    public static int updateUserType(int idUser, int userType) {
+        UserDAO userDAO = new UserDAO();
+
+        User user = userDAO.readByID(idUser);
+
+        if (user != null) {
+            user.setUserType(userType);
+            boolean updateUserType = userDAO.update(user);
+
+            if (updateUserType) {
+                System.out.println("UserType updated");
+                return 1;
+            }
+        }
+        return -5;
     }
 }

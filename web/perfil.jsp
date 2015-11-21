@@ -1,7 +1,7 @@
 <%-- 
     Document   : perfil
     Created on : 14/10/2015, 17:42:19
-    Author     : 31438938
+    Author     : Victor Messina TIA: 31449530, Leticia Garcia TIA: 31402836 , Filippi Di Pipi TIA: 31438938
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -52,8 +52,15 @@
                     <p> E-mail: <h2>${access.getUser().getEmail()}</h2></p>
                     <p> CPF: <h2>${access.getUser().getCpf()}</h2></p>
                     <p> Tipo de conta: <h2>${access.getAccount().getTypes()}</h2></p>
-                    <p> NumberCard: <h2> ${access.getPayment().getNumberCard()}</h2> </p>
-                    <p> Status Payment: <h2> ${access.getPayment().getStatus()}</h2> </p>
+                    <p> NumberCard: <h2> ${access.getPayment().getNumberCard()}</h2></p>
+                    <p> Status Payment: <h2> ${access.getPayment().getStatus()}</h2></p>
+                    <p> idPayment: <h2> ${access.getPayment().getId_payment()}</h2></p>
+
+                    <form action="FrontController" method="POST">
+                        <input type="text" name="idPayment" placeholder="idPayment" maxlength="1" required />
+                        <input type="hidden" name="command" value="access.pagar" />
+                        <p> <input type="submit" value="Pagar conta"/></p>
+                    </form>
                 </section>
             </div>	
         </div>
