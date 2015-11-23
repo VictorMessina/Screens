@@ -40,7 +40,7 @@
             <!-- Banner -->
             <div id="banner" class="container">
                 <section>
-                    <h1><% out.print("ERRO " + request.getSession().getAttribute("code").toString());%></h1>
+                    <h1><% out.print("ERRO: " + request.getSession().getAttribute("code").toString());%></h1>
                 </section>
             </div>
         </div>

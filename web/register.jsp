@@ -47,7 +47,7 @@
                             <p> <input type="submit" value="Continue"/></p>
                         </fieldset>
                     </form>
-                    <p> OBS: Não é preciso separar os numeros do cpf com pontos e traços </p>
+                    <p> OBS: Não é preciso separar os numeros do CPF com pontos e traços </p>
                 </section>
             </div>	
         </div>

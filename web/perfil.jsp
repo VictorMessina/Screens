@@ -53,11 +53,12 @@
                     <p> CPF: <h2>${access.getUser().getCpf()}</h2></p>
                     <p> Tipo de conta: <h2>${access.getAccount().getTypes()}</h2></p>
                     <p> NumberCard: <h2> ${access.getPayment().getNumberCard()}</h2></p>
-                    <p> Status Payment: <h2> ${access.getPayment().getStatus()}</h2></p>
-                    <p> idPayment: <h2> ${access.getPayment().getId_payment()}</h2></p>
+                    <p> Status do Pagamento: <h2> ${access.getPayment().getStatus()}</h2></p>
+                    <p> Código de Pagamento: <h2> ${access.getPayment().getId_payment()}</h2></p>
 
                     <form action="FrontController" method="POST">
-                        <input type="text" name="idPayment" placeholder="idPayment" maxlength="1" required />
+                        <input type="text" name="idPayment" placeholder="codigo" maxlength="1" required />
+                        <br>
                         <input type="hidden" name="command" value="access.pagar" />
                         <p> <input type="submit" value="Pagar conta"/></p>
                     </form>

@@ -19,6 +19,21 @@
         <link rel="stylesheet" href="css/skel.css" />
         <link rel="stylesheet" href="css/style.css" />
         </noscript>
+        <style>
+            a.home {
+                background: #d84780;
+                color: white;
+                border: none;
+                display: block;
+                outline: 0;
+                padding: 16px 16px;
+                text-decoration: none;
+                text-align: center;
+                text-transform: uppercase;
+                width: 14%;
+                border-radius: 6px;
+            }
+        </style>
     </head>
     <body>
         <!-- Site -->
@@ -39,6 +54,7 @@
 
         <!-- Banner -->
         <div id="banner" class="container">
+            <a class ="home" href="FrontController?command=adm.functions"><b>Home ADM</b></a>
             <section>
                 <p> Insira os dados do novo Filme: </p>
                 <form action="FrontController" method="POST">
@@ -57,7 +73,6 @@
                 </form>
                 <p> OBS: Nos campos Classification e Year são usados numeros </p>
             </section>
-            <a href="FrontController?command=adm.functions">Home ADM</a>
         </div>	
     </body>
 </html>

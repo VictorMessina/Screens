@@ -22,11 +22,31 @@
         </noscript>
         <style>
             select {
-                color: #000;
-                font-family: 'Raleway', sans-serif;
-                font-size: 12pt;
-                font-weight: 300;
-                line-height: 26px;
+                background: white;
+                border-radius: 6px;
+                border: 0;
+                color: black;
+                cursor: pointer;
+                display: inline-block;
+                padding: 10px 24px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 17px;
+                font-weight: 600;
+            }
+            a.home {
+                background: #d84780;
+                color: white;
+                border: none;
+                display: block;
+                outline: 0;
+                padding: 16px 16px;
+                text-decoration: none;
+                text-align: center;
+                text-transform: uppercase;
+                width: 14%;
+                border-radius: 6px;
             }
         </style>
     </head>
@@ -49,14 +69,16 @@
 
         <!-- Banner -->
         <div id="banner" class="container">
+            <a class ="home" href="FrontController?command=adm.functions"><b>Home ADM</b></a>
             <c:if test="${users.size()==1}">
-                <c:out value="A lista de usuarios esta vazia"> </c:out>
+                <h2><c:out value="ATENÇÃO: A lista de usuarios esta vazia"></c:out></h2>
             </c:if>
+            <br><br>
             <section>
                 <p> Selecione o usuário que deseja excluir: </p>
                 <form action="FrontController" method="POST">
                     <select name="idUser">
-                        <option value="-1"> nome Usuario</option>
+                        <option value="-1"> selecionar </option>
                         <c:forEach var="user" items="${users}">
                             <c:if test="${user.getUser().getUserType()!= 2}">
                                 <option value="${user.getUser().getId_User()}"> ${user.getUser().getOwner()} </option>
@@ -64,22 +86,9 @@
                         </c:forEach>
                     </select>
                     <input type="hidden" name="command" value="userAdm.delete" />
-                    <p> <input type="submit" value="Delete User"/></p>
+                    <br><br><p> <input type="submit" value="Delete User"/></p>
                 </form>
             </section>
-            <a href="FrontController?command=adm.functions">Home ADM</a>
         </div>	
-
-        <!-- Rodapé -->
-        <div id="footer">
-            <div class="container">
-                <p>Facebook: <br>Filippi, Letícia, Victor</p>
-                <ul class="icons">
-                    <li><a href="https://www.facebook.com/FilippiLuigi" class="fa fa-facebook"></a></li>
-                    <li><a href="https://www.facebook.com/letiglow" class="fa fa-facebook"></a></li>
-                    <li><a href="https://www.facebook.com/victor.messina.7" class="fa fa-facebook"></a></li>
-                </ul>
-            </div>
-        </div>
     </body>
 </html>

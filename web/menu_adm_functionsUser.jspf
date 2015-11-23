@@ -2,12 +2,27 @@
 Victor Messina TIA: 31449530, Leticia Garcia TIA: 31402836 , Filippi Di Pipi TIA: 31438938
 --%>
 <%@ page pageEncoding="UTF-8" %>
+<style>
+    a.bb {
+        background: #d84780;
+        color: white;
+        border: none;
+        display: block;
+        outline: 0;
+        padding: 10px 16px;
+        text-decoration: none;
+        text-align: center;
+        text-transform: uppercase;
+        width: 14%;
+        border-radius: 6px;
+    }
+</style>
 
 <nav>
     <ul>
-        <li><a href="FrontController?command=adm.insertUser">Insert User</a></li>
-        <li><a href="FrontController?command=adm.readUser">Read User</a></li>
-        <li><a href="FrontController?command=adm.updateUser">Update User</a></li>
-        <li><a href="FrontController?command=adm.deleteUser">Delete User</a></li>
+        <br><li><a class="bb" href="FrontController?command=adm.insertUser"><b>Insert User</b></a></li>
+        <br><li><a class="bb" href="FrontController?command=adm.readUser"><b>Read User</b></a></li>
+        <br><li><a class="bb" href="FrontController?command=adm.updateUser"><b>Update User</b></a></li>
+        <br><li><a class="bb" href="FrontController?command=adm.deleteUser"><b>Delete User</b></a></li>
     </ul>
 </nav>

@@ -46,7 +46,8 @@
             <!-- Banner -->
             <div id="banner" class="container">
                 <section>
-                    <p>Prazer te conhecer ${access.getUser().getOwner()}, somos <strong>SCREENS</strong>, seu site preferido para ver filmes!</p>
+                    <p>Prazer te conhecer, ${access.getUser().getOwner()}!</p>
+                    <p> Somos <strong>SCREENS</strong>, seu site preferido para ver filmes!</p>
                     <p> Venha nos visitar no Mackenzie, </p>
                     <p> procure por Filippi, Letícia ou Victor </p>
                     <br>

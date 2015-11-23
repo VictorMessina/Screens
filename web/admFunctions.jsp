@@ -21,11 +21,9 @@
         <link rel="stylesheet" href="css/style.css"/>
         </noscript>
     </head>
+    
     <body>
-        <h2>Funções ADM</h2>
-        
         <div class="site">
-
             <!-- Header -->
             <div id="header" class="skel-panels-fixed">
                 <div id="logo">
@@ -38,17 +36,13 @@
                 </nav>
             </div>
 
-        <div class="container">
-            
-            <h1> Menu do CRUD de Usuarios </h1>
-
-            <%@include file="menu_adm_functionsUser.jspf" %>
-            
-            <hr>
-            
-            <h1> Menu do CRUD de Filmes</h1>
-            
-            <%@include file="menu_adm_functionsMovies.jspf" %> 
-        </div>
+            <div class="container">
+                <h3> Menu do CRUD de Usuarios </h3>
+                <%@include file="menu_adm_functionsUser.jspf" %>
+                <hr>
+                <br>
+                <h3> Menu do CRUD de Filmes</h3>
+                <%@include file="menu_adm_functionsMovies.jspf" %> 
+            </div>
     </body>
 </html>

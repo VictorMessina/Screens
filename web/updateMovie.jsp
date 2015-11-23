@@ -21,12 +21,32 @@
         <link rel="stylesheet" href="css/style.css" />
         </noscript>
         <style>
-            select {
-                color: #000;
-                font-family: 'Raleway', sans-serif;
-                font-size: 12pt;
-                font-weight: 300;
-                line-height: 26px;
+            select, option {
+                background: white;
+                border-radius: 6px;
+                border: 0;
+                color: black;
+                cursor: pointer;
+                display: inline-block;
+                padding: 10px 24px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 17px;
+                font-weight: 600;
+            }
+            a.home {
+                background: #d84780;
+                color: white;
+                border: none;
+                display: block;
+                outline: 0;
+                padding: 16px 16px;
+                text-decoration: none;
+                text-align: center;
+                text-transform: uppercase;
+                width: 14%;
+                border-radius: 6px;
             }
         </style>
     </head>
@@ -48,108 +68,109 @@
         </div>
 
         <!-- Banner -->
-        <div id="banner" class="container">
+        <div id="banner" class="container">         
+            <a class ="home" href="FrontController?command=adm.functions"><b>Home ADM</b></a>
             <c:if test="${movies.size()==0}">
-                <c:out value="A lista de filmes esta vazia"> </c:out>
+                <h2><c:out value="ATENÇÃO: A lista de filmes esta vazia"> </c:out></h2>
             </c:if>
+            <br><br>
             <section>
-                <a href="FrontController?command=adm.functions">Home ADM</a>
                 <p> Mudar titulo do filme: </p>
                 <form action="FrontController" method="POST">
                     <select name="idMovie">
-                        <option value="-1"> nome Filme</option>
+                        <option value="-1"> selecionar </option>
                         <c:forEach var="movie" items="${movies}">
                             <option value="${movie.getId_Movie()}"> ${movie.getTitle()} </option>
                         </c:forEach>
                     </select>
-                    <p> Title:  <input type="text" name="title" placeholder="Title" maxlength="50" required/></p>
+                    <br><br><p> Title:  <input type="text" name="title" placeholder="Title" maxlength="50" required/></p>
                     <input type="hidden" name="command" value="movie.updateTitle" />
                     <p> <input type="submit" value="Mudar Titulo"/></p>
                 </form>
             </section>
 
-            <hr>
+            <br><hr><br>
 
             <section>
                 <p> Mudar ano do filme: </p>
                 <form action="FrontController" method="POST">
                     <select name="idMovie">
-                        <option value="-1"> nome Filme</option>
+                        <option value="-1"> selecionar </option>
                         <c:forEach var="movie" items="${movies}">
                             <option value="${movie.getId_Movie()}"> ${movie.getTitle()} </option>
                         </c:forEach>
                     </select>                    
-                    <p> Year: <input type="text" name="years"  placeholder="Year" maxlength="4" required/></p>
+                    <br><br><p> Year: <input type="text" name="years"  placeholder="Year" maxlength="4" required/></p>
                     <input type="hidden" name="command" value="movie.updateYear" />
                     <p> <input type="submit" value="Mudar Ano"/></p>
                 </form>
                 <p> OBS: No campo Year é usado numero </p>
             </section>
 
-            <hr>
+            <br><hr><br>
 
             <section>
                 <p> Mudar diretor do filme: </p>
                 <form action="FrontController" method="POST">
                     <select name="idMovie">
-                        <option value="-1"> nome Filme</option>
+                        <option value="-1"> selecionar </option>
                         <c:forEach var="movie" items="${movies}">
                             <option value="${movie.getId_Movie()}"> ${movie.getTitle()} </option>
                         </c:forEach>
                     </select>                    
-                    <p> Director: <input type="text" name="director"  placeholder="Director" maxlength="20" required/></p>
+                    <br><br><p> Director: <input type="text" name="director"  placeholder="Director" maxlength="20" required/></p>
                     <input type="hidden" name="command" value="movie.updateDirector" />
                     <p> <input type="submit" value="Mudar Diretor"/></p>
                 </form>
             </section>
 
-            <hr>
+            <br><hr><br>
 
             <section>
                 <p> Mudar classificação do filme: </p>
                 <form action="FrontController" method="POST">
                     <select name="idMovie">
-                        <option value="-1"> nome Filme</option>
+                        <option value="-1"> selecionar </option>
                         <c:forEach var="movie" items="${movies}">
                             <option value="${movie.getId_Movie()}"> ${movie.getTitle()} </option>
                         </c:forEach>
                     </select>                    
-                    <p> Classification: <input type="text" name="classification" placeholder="Classification" required/></p>
+                    <br><br><p> Classification: <input type="text" name="classification" placeholder="Classification" required/></p>
                     <input type="hidden" name="command" value="movie.updateClassification" />
                     <p> <input type="submit" value="Mudar Classificação"/></p>
                 </form>
                 <p> OBS: No campo Classification é usado numero </p>
             </section>
 
-            <hr>
+            <br><hr><br>
 
             <section>
                 <p> Mudar genero do filme: </p>
                 <form action="FrontController" method="POST">
                     <select name="idMovie">
-                        <option value="-1"> nome Filme</option>
+                        <option value="-1"> selecionar </option>
                         <c:forEach var="movie" items="${movies}">
                             <option value="${movie.getId_Movie()}"> ${movie.getTitle()} </option>
                         </c:forEach>
                     </select>
-                    <p> Genre: <input type="text" name="genre" placeholder="Genre" maxlength="20" required/></p>
+                    <br><br><p> Genre: <input type="text" name="genre" placeholder="Genre" maxlength="20" required/></p>
                     <input type="hidden" name="command" value="movie.updateGenre" />
                     <p> <input type="submit" value="Mudar Genero"/></p>
                 </form>
             </section>
 
-            <hr>
+            <br><hr><br>
 
             <section>
                 <p> Mudar url do filme: </p>
                 <form action="FrontController" method="POST">
                     <select name="idMovie">
-                        <option value="-1"> nome Filme</option>
+                        <option value="-1"> selecionar </option>
                         <c:forEach var="movie" items="${movies}">
                             <option value="${movie.getId_Movie()}"> ${movie.getTitle()} </option>
                         </c:forEach>
                     </select>
-                    <p> URL: <input type="text" name="url" placeholder="URL" maxlength="50" required/></p>
+                    <br><br><p> URL: <input type="text" name="url" placeholder="URL" maxlength="50" required/></p>
                     <input type="hidden" name="command" value="movie.updateUrl" />
                     <p> <input type="submit" value="Mudar URL"/></p>
                 </form>

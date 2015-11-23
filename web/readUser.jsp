@@ -20,6 +20,21 @@
         <link rel="stylesheet" href="css/skel.css" />
         <link rel="stylesheet" href="css/style.css" />
         </noscript>
+        <style>
+            a.home {
+                background: #d84780;
+                color: white;
+                border: none;
+                display: block;
+                outline: 0;
+                padding: 16px 16px;
+                text-decoration: none;
+                text-align: center;
+                text-transform: uppercase;
+                width: 14%;
+                border-radius: 6px;
+            }
+        </style>
     </head>
     <body>
         <!-- Site -->
@@ -40,13 +55,14 @@
 
         <!-- Banner -->
         <div id="banner" class="container">
+            <a class ="home" href="FrontController?command=adm.functions"><b>Home ADM</b></a>
             <section>
                 <c:if test="${users.size()==1}">
-                    <c:out value="A lista de usuarios comuns esta vazia" > </c:out>
+                    <h2><c:out value="ATENÇÃO: A lista de usuarios comuns esta vazia" > </c:out></h2>
                 </c:if>
-                <br>
-                <c:out value="lista de usuarios comuns do site" > </c:out>
-                <br>
+                <br><br>
+                <c:out value="LISTA DE USUARIOS COMUNS" > </c:out>
+                    <br>
                 <c:forEach var="user" items="${users}">
                     <c:if test="${user.getUser().getUserType()!= 2}"> 
                         ${user.getUser().getOwner()} <br>
@@ -56,20 +72,17 @@
             <hr>
             <section>
                 <c:if test="${users.size()==0}">
-                    <c:out value=" A lista de usuarios com funçoes de administrador esta vazia" > </c:out>
+                    <h2><c:out value="ATENÇÃO: A lista de usuarios com funçoes de administrador esta vazia" > </c:out></h2>
                 </c:if>
-                <br>
-                <c:out value="lista de usuarios com funçoes de administrador" > </c:out>
-                <br>
+                <br><br>
+                <c:out value="LISTA DE USUARIOS COM FUNÇÕES DE ADMINISTRADOR" > </c:out>
+                    <br>
                 <c:forEach var="user" items="${users}">
                     <c:if test="${user.getUser().getUserType()== 2}"> 
                         ${user.getUser().getOwner()} <br>
                     </c:if>
                 </c:forEach>
             </section>
-            <a href="FrontController?command=adm.functions">Home ADM</a>
         </div>	
     </body>
 </html>
-
-

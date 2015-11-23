@@ -97,6 +97,8 @@ insert into MOVIE_ (title, years, director, classification, genre, url) values (
 insert into MOVIE_ (title, years, director, classification, genre, url) values ('O Senhor dos Anéis – O Retorno do Rei', 2003, 'Peter Jackson', 12, 'Aventura', 'https://www.youtube.com/embed/Q9wZCGjBxyU');
 
 update USER_ set USERTYPE=2 WHERE OWNER='Victor';
+update USER_ set USERTYPE = 2 WHERE OWNER = 'leticia';
+update USER_ set USERTYPE = 2 WHERE OWNER = 'filippi';
 
 -- -- -- -- -- -- -- --
 
@@ -113,8 +115,3 @@ update user_projeto set user_type=2 WHERE USERNAME='admin'; --
 -- Alter table User_Projeto add column bday DATE;
 update user_projeto set bday = '1900-03-23';
 update user_projeto set bday = '1995-10-23' WHERE USERNAME='victor'; --
-
-
-select * from Access_ 
-inner join User_ on Access_.id_Access = User_.id_User 
-join Account_ on Access_.id_Access = Account_.id_Account;
