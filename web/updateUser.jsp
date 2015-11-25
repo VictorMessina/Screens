@@ -148,7 +148,9 @@
                     <select name="idUser">
                         <option value="-1"> selecionar </option>
                         <c:forEach var="user" items="${users}">
-                            <option value="${user.getUser().getId_User()}"> ${user.getUser().getOwner()} </option>
+                            <c:if test="${user.getUser().getUserType()!= 2}"> 
+                                <option value="${user.getUser().getId_User()}"> ${user.getUser().getOwner()} </option>
+                            </c:if>
                         </c:forEach>
                     </select>
                     <br><br><p> UserType: <input type="text" name="userType" placeholder="userType" maxlength="1" required/></p>
@@ -200,7 +202,9 @@
                     <select name="idUser">
                         <option value="-1"> selecionar </option>
                         <c:forEach var="user" items="${users}">
-                            <option value="${user.getAccount().getId_Account()}"> ${user.getUser().getOwner()} </option>
+                            <c:if test="${user.getUser().getUserType()!= 2}"> 
+                                <option value="${user.getAccount().getId_Account()}"> ${user.getUser().getOwner()} </option>
+                            </c:if>
                         </c:forEach>
                     </select>
                     <br><br>

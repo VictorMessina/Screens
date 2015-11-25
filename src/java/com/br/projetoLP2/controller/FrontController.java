@@ -11,6 +11,7 @@ import com.br.projetoLP2.model.DAO.MovieDAO;
 import com.br.projetoLP2.model.Movie;
 import com.br.projetoLP2.model.Payment;
 import com.br.projetoLP2.model.User;
+import com.br.projetoLP2.model.exception.OwnerException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -91,7 +92,7 @@ public class FrontController extends HttpServlet {
                         String mensagem = "";
                         switch (code) {
                             case -3:
-                                mensagem = "Owner already exist";
+                                mensagem = new OwnerException().getMessage();
                                 break;
                             case -5:
                                 mensagem = "ERROR on data base. try again";

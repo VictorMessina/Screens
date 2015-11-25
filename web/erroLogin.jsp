@@ -44,17 +44,5 @@
                 </section>
             </div>
         </div>
-
-        <!-- Rodapé -->
-        <div id="footer">
-            <div class="container">
-                <p>Facebook: <br>Filippi, Letícia, Victor</p>
-                <ul class="icons">
-                    <li><a href="https://www.facebook.com/FilippiLuigi" class="fa fa-facebook"></a></li>
-                    <li><a href="https://www.facebook.com/letiglow" class="fa fa-facebook"></a></li>
-                    <li><a href="https://www.facebook.com/victor.messina.7" class="fa fa-facebook"></a></li>
-                </ul>
-            </div>
-        </div>
     </body>
 </html>

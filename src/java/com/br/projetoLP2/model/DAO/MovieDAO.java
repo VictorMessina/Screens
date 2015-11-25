@@ -24,7 +24,7 @@ public class MovieDAO implements GenericDAO<Movie> {
     public boolean insert(Movie movie) {
         boolean resp = false;
 
-        String sql = "insert into Movie_ (title,years,director,classification,genre) values(?,?,?,?,?)";
+        String sql = "insert into Movie_ (title,years,director,classification,genre,url) values(?,?,?,?,?,?)";
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -34,6 +34,7 @@ public class MovieDAO implements GenericDAO<Movie> {
             ps.setString(3, movie.getDirector());
             ps.setInt(4, movie.getClassification());
             ps.setString(5, movie.getGenre());
+            ps.setString(6, movie.getUrl());
 
             int resposta = ps.executeUpdate();
 

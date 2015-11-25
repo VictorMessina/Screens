@@ -13,7 +13,7 @@ Victor Messina TIA: 31449530, Leticia Garcia TIA: 31402836 , Filippi Di Pipi TIA
                 </div>
                 <nav id="nav">
                     <ul>
-                        <li> <h1>Welcome ${access.getUser().getOwner()} </h1></li>
+                        <li> <h1>Welcome, ${access.getUser().getOwner()} </h1></li>
                         <li><a href="FrontController?command=access.perfil">Perfil</a></li>
                         <li><a href="FrontController?command=access.homepage">Home</a></li>
                         <li><a href="grupo.jsp">Sobre Nós</a></li>
